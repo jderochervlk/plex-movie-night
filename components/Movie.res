@@ -1,7 +1,9 @@
+type t = {name: string, wantToWatch: bool}
+
 @jsx.component
-let make = (~name, ~checked) => {
+let make = (~movie: t) => {
   <div>
-    {name->Preact.string}
-    <input type_="checkbox" checked={checked} />
+    {movie.name->Preact.string}
+    <input type_="checkbox" checked={movie.wantToWatch} />
   </div>
 }

@@ -5,12 +5,7 @@ let set = name => localStorage->setItem(~key="name", ~value=name)
 
 @jsx.component
 let make = () => {
-  let (name, setName) = Preact.useState((): option<string> => Some("__loading__"))
-
-  Preact.useEffect(() => {
-    setName(_ => get()->Null.toOption)
-    Some(() => ())
-  }, ())
+  let (name, setName) = Preact.useState((): option<string> => None)
 
   if Fresh.is_browser {
     switch name {

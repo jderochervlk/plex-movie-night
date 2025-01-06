@@ -9,7 +9,6 @@ import * as $greet_name_ from "./routes/greet/[name].js";
 import * as $index from "./routes/index.js";
 import * as $signin from "./routes/signin.js";
 import * as $NameForm from "./islands/NameForm.js";
-import * as $movies from "./islands/movies.js";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -23,7 +22,6 @@ const manifest = {
   },
   islands: {
     "./islands/NameForm.js": $NameForm,
-    "./islands/movies.js": $movies,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
