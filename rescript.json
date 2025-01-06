@@ -6,6 +6,10 @@
             "subdirs": true
         },
         {
+            "dir": "islands",
+            "subdirs": true
+        },
+        {
             "dir": "routes",
             "subdirs": true
         },
