@@ -1,0 +1,34 @@
+{
+    "name": "rescript-fresh-example",
+    "sources": [
+        {
+            "dir": "components",
+            "subdirs": true
+        },
+        {
+            "dir": "islands",
+            "subdirs": true
+        },
+        {
+            "dir": "routes",
+            "subdirs": true
+        }
+    ],
+    "package-specs": [
+        {
+            "module": "esmodule",
+            "in-source": true
+        }
+    ],
+    "suffix": ".js",
+    "jsx": {
+        "module": "preact"
+    },
+    "bs-dependencies": [
+        "@rescript/webapi",
+        "@jvlk/rescript-fresh"
+    ],
+    "bsc-flags": [
+        "-open WebAPI.Global"
+    ]
+}
