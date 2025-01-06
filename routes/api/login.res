@@ -42,11 +42,11 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   },
 }
 
-let authCheck = async (req, context: Fresh.Context.t<unknown, unknown, unknown>) => {
+let authCheck = async req => {
   let isAllowed = await isAuthenticated(req)
 
   switch isAllowed {
-  | true => context.render(None, None)
-  | false => Response.redirect(~url=`${req.url}signin`)
+  | true => None
+  | false => Some(() => Response.redirect(~url=`${req.url}signin`))
   }
 }
