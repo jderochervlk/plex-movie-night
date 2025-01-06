@@ -26,7 +26,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
       headers->Std.Http.Cookies.set({
         name: "auth",
         value: Env.token,
-        maxAge: 120,
+        maxAge: 120 * 120,
         sameSite: "Lax",
         domain: req->Utils.getHostname,
         path: "/",
