@@ -23,16 +23,13 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Install deps
-        run: "deno install"
-
       - name: Build step
         run: "deno task build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "rescript-fresh-example"
+          project: "vlk-movie-night"
           entrypoint: "main.ts"
           root: "."
           
