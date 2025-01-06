@@ -1,4 +1,3 @@
-open WebAPI.Global
 open WebAPI.Storage
 
 let get = () => localStorage->getItem("name")
@@ -6,7 +5,7 @@ let set = name => localStorage->setItem(~key="name", ~value=name)
 
 @jsx.component
 let make = () => {
-  let (name, setName) = Preact.useState((): option<string> => None)
+  let (name, setName) = Preact.useState((): option<string> => Some("__loading__"))
 
   Preact.useEffect(() => {
     setName(_ => get()->Null.toOption)
@@ -15,6 +14,7 @@ let make = () => {
 
   if Fresh.is_browser {
     switch name {
+    | Some("__loading__") => Preact.null
     | Some(name) => <p> {`Hello ${name}`->Preact.string} </p>
     | None =>
       <form
