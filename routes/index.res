@@ -14,7 +14,9 @@ let make = () => {
       <NameForm />
     </div>
     <div class="px-4 py-8 mx-auto">
-      <Movies movies=[{name: "Star Wars", wantToWatch: true}] />
+      <Movies
+        movies=[{name: "Star Wars", wantToWatch: true}, {name: "Batman", wantToWatch: false}]
+      />
     </div>
   </main>
 }
