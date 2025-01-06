@@ -7,7 +7,7 @@ let make = props => {
     <head>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title> {"example"->Preact.string} </title>
+      <title> {"Movie Night"->Preact.string} </title>
       <link rel="stylesheet" href="/styles.css" />
     </head>
     <body> {props.component({})} </body>

@@ -4,23 +4,23 @@
 
 import * as $_404 from "./routes/_404.js";
 import * as $_app from "./routes/_app.js";
-import * as $api_joke from "./routes/api/joke.js";
+import * as $api_login from "./routes/api/login.js";
 import * as $greet_name_ from "./routes/greet/[name].js";
 import * as $index from "./routes/index.js";
-import * as $Counter from "./islands/Counter.js";
+import * as $signin from "./routes/signin.js";
+
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
     "./routes/_404.js": $_404,
     "./routes/_app.js": $_app,
-    "./routes/api/joke.js": $api_joke,
+    "./routes/api/login.js": $api_login,
     "./routes/greet/[name].js": $greet_name_,
     "./routes/index.js": $index,
+    "./routes/signin.js": $signin,
   },
-  islands: {
-    "./islands/Counter.js": $Counter,
-  },
+  islands: {},
   baseUrl: import.meta.url,
 } satisfies Manifest;
 

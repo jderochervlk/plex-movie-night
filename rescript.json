@@ -12,6 +12,14 @@
         {
             "dir": "routes",
             "subdirs": true
+        },
+        {
+            "dir": "bindings",
+            "subdirs": true
+        },
+        {
+            "dir": "src",
+            "subdirs": true
         }
     ],
     "package-specs": [

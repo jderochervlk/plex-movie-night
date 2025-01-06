@@ -16,5 +16,8 @@
   },
   "css.customData": [
     ".vscode/tailwind.json"
-  ]
+  ],
+  "[rescript]": {
+    "editor.defaultFormatter": "chenglou92.rescript-vscode"
+  }
 }

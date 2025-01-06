@@ -35,7 +35,7 @@
     "$std/": "https://deno.land/std@0.216.0/",
     "rescript": "npm:rescript@next",
     "@rescript/webapi": "npm:@rescript/webapi@experimental",
-    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.4.0"
+    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.5.0"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
