@@ -1,27 +1,16 @@
-type data = {
-  movies: array<Movie.t>,
-  recentlyAdded: JSON.t,
-}
+type data = {recentlyAdded: Plex.MediaContainer.t}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
     switch await Login.authCheck(req) {
     | Some(fn) => fn()
-    | None => {
-        let new = await Plex.getRecent()
-        ctx.render(
-          Some({
-            movies: [
-              {
-                name: "star wars",
-                wantToWatch: true,
-              },
-            ],
-            recentlyAdded: new,
-          }),
-          None,
-        )
-      }
+    | None =>
+      ctx.render(
+        Some({
+          recentlyAdded: await Plex.getRecent(),
+        }),
+        None,
+      )
     }
   },
 }
@@ -37,10 +26,27 @@ let make = (~data: data) => {
     <div class="px-4 py-8 mx-auto text-center">
       <NameForm />
     </div>
-    <div class="px-4 py-8 mx-auto">
-      <Movies movies=data.movies />
-    </div>
-    <pre> {data.recentlyAdded->JSON.stringify(~space=2)->Preact.string} </pre>
+    <section class="px-4 py-8 mx-auto">
+      <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
+      <div class="grid grid-flow-row grid-cols-5 gap-5">
+        {data.recentlyAdded.mediaContainer.metadata
+        ->Plex.onlyMovies
+        ->Array.map(item =>
+          switch item {
+          | Movie({title, thumb}) => <Thumbnail title thumb />
+          | _ => Preact.null
+          }
+        )
+        ->Preact.array}
+        //   <Movies movies=data.movies />
+      </div>
+    </section>
+    <pre>
+      {data.recentlyAdded.mediaContainer.metadata
+      ->JSON.stringifyAny(~space=2)
+      ->Option.getOr("")
+      ->Preact.string}
+    </pre>
   </main>
 }
 

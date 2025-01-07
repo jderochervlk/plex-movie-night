@@ -10,7 +10,9 @@
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "res:dev": "rescript -w",
     "res:build": "rescript",
-    "res:clean": "rescript clean"
+    "res:clean": "rescript clean",
+    "build:edgedb": "rescript-edgedb generate --output ./src/__generated__ --src ./src",
+    "watch:edgedb": "deno run build:edgedb -- --watch"
   },
   "lint": {
     "rules": {
@@ -35,7 +37,10 @@
     "$std/": "https://deno.land/std@0.216.0/",
     "rescript": "npm:rescript@next",
     "@rescript/webapi": "npm:@rescript/webapi@experimental",
-    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.5.0"
+    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.5.0",
+    "rescript-edgedb": "npm:rescript-edgedb", 
+    "rescript-embed-lang": "npm:rescript-embed-lang",
+    "@rescript/core": "npm:@rescript/core"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

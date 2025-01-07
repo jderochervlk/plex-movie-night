@@ -34,9 +34,11 @@
     },
     "bs-dependencies": [
         "@rescript/webapi",
-        "@jvlk/rescript-fresh"
+        "@jvlk/rescript-fresh",
+        "rescript-edgedb"
     ],
     "bsc-flags": [
         "-open WebAPI.Global"
-    ]
+    ],
+    "ppx-flags": ["rescript-embed-lang/ppx"]
 }
