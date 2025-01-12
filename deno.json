@@ -11,7 +11,7 @@
     "res:dev": "rescript -w",
     "res:build": "rescript",
     "res:clean": "rescript clean",
-    "build:edgedb": "rescript-edgedb generate --output ./src/__generated__ --src ./src",
+    "build:edgedb": "rescript-edgedb generate --output ./src/__generated__ --src ./src -I jderochervlk/mydb",
     "watch:edgedb": "deno run build:edgedb -- --watch"
   },
   "lint": {

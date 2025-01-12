@@ -13,3 +13,4 @@ node_modules/
 # rescript
 lib
 **/*.js
+__generated__
