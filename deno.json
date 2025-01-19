@@ -8,7 +8,7 @@
     "start:rescript": "rescript -w",
     "start:edgedb": "deno run build:edgedb -- --watch",
     "start": "deno task start:edgedb & deno task start:rescript & deno task start:fresh",
-    "build": "deno task build:edgedb && deno task res:build && deno run -A dev.ts build",
+    "build": "deno task res:build && deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
     "res:dev": "rescript -w",
