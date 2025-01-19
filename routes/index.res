@@ -25,12 +25,19 @@ let make = (~data: data) => {
     </div>
     <section class="px-4 py-8 mx-auto">
       <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
-      <div class="grid grid-flow-row grid-cols-5 gap-5">
+      <div class="grid grid-flow-row grid-cols-3 gap-3">
         {data.recentlyAdded.mediaContainer.metadata
         ->Plex.onlyMovies
+        ->Array.map(media => {
+          Console.log(media)
+          media
+        })
         ->Array.map(item =>
           switch item {
-          | Movie({title, thumb}) => <Thumbnail title thumb />
+          | Movie({title, thumb}) => {
+              Console.log(item)
+              <Thumbnail title thumb />
+            }
           | _ => Preact.null
           }
         )
