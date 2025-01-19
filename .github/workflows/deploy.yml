@@ -24,6 +24,14 @@ jobs:
         with:
           deno-version: v2.x
 
+      - name: Cache
+        uses: actions/cache@v4.2.0
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+          path: |
+            node_modules
+            lib
+
       - name: Pre-build step
         run: deno install --allow-scripts=npm:rescript-embed-lang@0.5.5,npm:rescript@12.0.0-alpha.7,npm:rescript@11.1.4
 
