@@ -13,13 +13,13 @@ let doesPasswordMatch = async req => {
 
   let password = form->FormData.get2("password")
 
-  password == Env.password
+  password == Env.password()
 }
 
 let hasNameSet = async (req: FetchAPI.request) => {
   let cookies = Std.Http.Cookies.get(req.headers)
   switch cookies->Dict.get("name") {
-  | Some(name) => Env.names->Array.includes(name)
+  | Some(name) => Env.names()->Array.includes(name)
   | None => false
   }
 }
@@ -27,7 +27,7 @@ let hasNameSet = async (req: FetchAPI.request) => {
 let isAuthenticated = async (req: FetchAPI.request) => {
   let cookies = Std.Http.Cookies.get(req.headers)
   switch cookies->Dict.get("auth") {
-  | Some(isAllowed) => isAllowed == Env.token
+  | Some(isAllowed) => isAllowed == Env.token()
   | None => false
   }
 }
@@ -39,7 +39,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
       headers->Headers.set(~name="location", ~value="/")
       headers->Std.Http.Cookies.set({
         name: "auth",
-        value: Env.token,
+        value: Env.token(),
         expires: sixMonthsFromNow(),
         sameSite: "Lax",
         domain: req->Utils.getHostname,

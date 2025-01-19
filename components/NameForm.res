@@ -5,7 +5,7 @@ let make = () => {
       {"Select your name"->Preact.string}
     </label>
     <select name="name" className="rounded-sm text-black p-3">
-      {Env.names
+      {Env.names()
       ->Array.map(name => <option value=name> {Preact.string(name)} </option>)
       ->Preact.array}
     </select>

@@ -19,7 +19,7 @@ module MediaContainer = {
 }
 
 let createUrl = (path, ~otherParams=false) =>
-  `${Env.plexServer}${path}${otherParams ? "&" : "?"}X-Plex-Token=${Env.plexToken}`
+  `${Env.plexServer()}${path}${otherParams ? "&" : "?"}X-Plex-Token=${Env.plexToken()}`
 
 let getRecent = async () => {
   let headers = Headers.make(~init=[["Accept", "application/json"]])
