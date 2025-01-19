@@ -1,21 +1,6 @@
-# Fresh project
+# Plex Movie Night
 
-This is an example project using ReScript and Fresh.
-You can clone this repo and use it to start creating your own Fresh application using ReScript.
+[![Deploy](https://github.com/jderochervlk/plex-movie-night/actions/workflows/deploy.yml/badge.svg)](https://github.com/jderochervlk/plex-movie-night/actions/workflows/deploy.yml)
 
-### Usage
-
-Make sure to install Deno: https://deno.land/manual/getting_started/installation
-
-Start ReScript in one terminal:
-```
-deno task res:dev
-```
-
-Then start the project:
-
-```
-deno task start
-```
-
-This will watch the project directory and restart as necessary.
+An app to see what movies your friends want to watch that you have on your Plex
+server.
