@@ -5,10 +5,11 @@
 import * as $_404 from "./routes/_404.js";
 import * as $_app from "./routes/_app.js";
 import * as $api_login from "./routes/api/login.js";
-import * as $greet_name_ from "./routes/greet/[name].js";
+import * as $api_name from "./routes/api/name.js";
 import * as $index from "./routes/index.js";
+import * as $setname from "./routes/setname.js";
 import * as $signin from "./routes/signin.js";
-import * as $NameForm from "./islands/NameForm.js";
+
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -16,13 +17,12 @@ const manifest = {
     "./routes/_404.js": $_404,
     "./routes/_app.js": $_app,
     "./routes/api/login.js": $api_login,
-    "./routes/greet/[name].js": $greet_name_,
+    "./routes/api/name.js": $api_name,
     "./routes/index.js": $index,
+    "./routes/setname.js": $setname,
     "./routes/signin.js": $signin,
   },
-  islands: {
-    "./islands/NameForm.js": $NameForm,
-  },
+  islands: {},
   baseUrl: import.meta.url,
 } satisfies Manifest;
 

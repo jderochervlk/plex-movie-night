@@ -10,7 +10,8 @@ module Http = {
     type cookieInit = {
       name: string,
       value: string,
-      maxAge: int,
+      maxAge?: int,
+      expires: Date.t,
       sameSite: string,
       domain: string,
       path: string,
