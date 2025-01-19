@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  PASSWORD: ${{ vars.PASWORD }}
+  PASSWORD: ${{ secrets.PASWORD }}
 
 jobs:
   deploy:
