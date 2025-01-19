@@ -45,12 +45,12 @@ let make = (~data: data) => {
         //   <Movies movies=data.movies />
       </div>
     </section>
-    <pre>
-      {data.recentlyAdded.mediaContainer.metadata
-      ->JSON.stringifyAny(~space=2)
-      ->Option.getOr("")
-      ->Preact.string}
-    </pre>
+    // <pre>
+    //   {data.recentlyAdded.mediaContainer.metadata
+    //   ->JSON.stringifyAny(~space=2)
+    //   ->Option.getOr("")
+    //   ->Preact.string}
+    // </pre>
   </main>
 }
 
