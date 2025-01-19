@@ -7,7 +7,16 @@ on:
   workflow_dispatch:
 
 env:
-  PASSWORD: ${{ secrets.PASWORD }}
+  EDGEDB_INSTANCE: ${{ secrets.EDGEDB_INSTANCE }}
+  EDGEDB_SECRET_KEY: ${{ secrets.EDGEDB_SECRET_KEY }}
+  NAMES: ${{ secrets.NAMES }}
+  PLEX_SERVER: ${{ secrets.PLEX_SERVER }}
+  PLEX_TOKEN: ${{ secrets.PLEX_TOKEN }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+  TOKEN: ${{ secrets.TOKEN }}
+
+
+
 
 jobs:
   deploy:
