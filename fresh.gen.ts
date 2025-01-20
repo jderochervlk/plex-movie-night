@@ -7,6 +7,7 @@ import * as $_app from "./routes/_app.js";
 import * as $api_login from "./routes/api/login.js";
 import * as $api_name from "./routes/api/name.js";
 import * as $index from "./routes/index.js";
+import * as $movie_ratingKey_ from "./routes/movie/[ratingKey].js";
 import * as $setname from "./routes/setname.js";
 import * as $signin from "./routes/signin.js";
 
@@ -19,6 +20,7 @@ const manifest = {
     "./routes/api/login.js": $api_login,
     "./routes/api/name.js": $api_name,
     "./routes/index.js": $index,
+    "./routes/movie/[ratingKey].js": $movie_ratingKey_,
     "./routes/setname.js": $setname,
     "./routes/signin.js": $signin,
   },

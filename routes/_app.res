@@ -11,7 +11,16 @@ let make = props => {
       <title> {"Movie Night"->Preact.string} </title>
       <link rel="stylesheet" href="/styles.css" />
     </head>
-    <body> {props.component({})} </body>
+    <body>
+      <header class="px-4 py-8 mx-auto bg-[#86efac]">
+        <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
+          <a href="/">
+            <h1 class="text-4xl font-bold"> {"Movie Night"->Preact.string} </h1>
+          </a>
+        </div>
+      </header>
+      <main className="max-width=[1700px] m-auto p-4 text-lg"> {props.component({})} </main>
+    </body>
   </html>
 }
 
