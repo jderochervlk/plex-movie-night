@@ -23,34 +23,7 @@ let make = (~data: data) => {
         <h1 class="text-4xl font-bold"> {"Movie Night"->Preact.string} </h1>
       </div>
     </div>
-    <section class="px-4 py-8 mx-auto">
-      <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
-      <div class="grid grid-flow-row grid-cols-3 gap-3">
-        {data.recentlyAdded.mediaContainer.metadata
-        ->Plex.onlyMovies
-        ->Array.map(media => {
-          Console.log(media)
-          media
-        })
-        ->Array.map(item =>
-          switch item {
-          | Movie({title, thumb}) => {
-              Console.log(item)
-              <Thumbnail title thumb />
-            }
-          | _ => Preact.null
-          }
-        )
-        ->Preact.array}
-        //   <Movies movies=data.movies />
-      </div>
-    </section>
-    // <pre>
-    //   {data.recentlyAdded.mediaContainer.metadata
-    //   ->JSON.stringifyAny(~space=2)
-    //   ->Option.getOr("")
-    //   ->Preact.string}
-    // </pre>
+    <Movies media=data.recentlyAdded.mediaContainer.metadata />
   </main>
 }
 

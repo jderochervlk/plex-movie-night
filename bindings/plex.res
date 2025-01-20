@@ -43,12 +43,8 @@ let onlyMovies = items =>
     }
   )
 
-let getThumb = url => {
-  // TODO: size this correctly
-  let t = createUrl(
-    `/photo/:/transcode?width=124&height=186&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
+let getThumb = url =>
+  createUrl(
+    `/photo/:/transcode?width=248&height=372&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
     ~otherParams=true,
   )
-  Console.log(t)
-  t
-}
