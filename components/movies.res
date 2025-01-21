@@ -7,7 +7,7 @@ let make = (~media: array<Plex.media>) => {
       {media
       ->Plex.onlyMovies
       ->Array.map(item => {
-        Console.log(item)
+        Console.info(item)
         item
       })
       ->Array.map(item =>
