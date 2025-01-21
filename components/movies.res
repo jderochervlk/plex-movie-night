@@ -10,6 +10,7 @@ let make = (~media: array<Plex.media>) => {
         Console.info(item)
         item
       })
+      ->Array.filter(item => %raw(`!(!item)`))
       ->Array.map(item =>
         switch item {
         | Movie({title, thumb, ratingKey}) =>
