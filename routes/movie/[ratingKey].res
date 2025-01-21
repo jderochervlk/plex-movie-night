@@ -16,7 +16,8 @@ let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t<Plex.Movie.t>, unkno
 @jsx.component
 let make = (~data: data) => {
   switch data->Plex.getFirstMovieFromMediaContainer {
-  | Some(movie) => // Console.log(movie)
+  | Some(movie) =>
+    // Console.log(movie)
     <div>
       <h1 className="text-2xl"> {Preact.string(movie.title)} </h1>
     </div>
