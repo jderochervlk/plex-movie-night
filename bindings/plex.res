@@ -6,7 +6,7 @@ module Movie = {
 
 type media =
   | @tag("type") @as("season") Season({parentTitle: string})
-  | @tag("type") @as("movie") Movie(Movie.t)
+  | @tag("type") @as("movie") Movie({title: string, thumb: string, ratingKey: int})
 
 module MediaContainer = {
   type mediaContainer<'a> = {
@@ -40,7 +40,14 @@ let getRecent = async (~size=100, ~offset=0) => {
 }
 
 let onlyMovies = items =>
-  items->Array.filter(item =>
+  items
+  ->Array.map(item => {
+    // Console.info(%raw(`!!item`))
+    // Console.info(%raw(`item?.title`))
+    item
+  })
+  ->Array.filter(item => %raw(`!!item`))
+  ->Array.filter(item =>
     switch item {
     | Movie(_) => true
     | _ => false
