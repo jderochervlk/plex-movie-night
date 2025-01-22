@@ -15,13 +15,10 @@ let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t, unknown> = {
 
 @jsx.component
 let make = (~data: data) => {
+  let _ = data->Plex.getFirstMovieFromMediaContainer->Console.log
   switch data->Plex.getFirstMovieFromMediaContainer {
-  | Some(Movie(movie)) =>
-    // Console.log(movie)
-    <div>
-      <h1 className="text-2xl"> {Preact.string(movie.title)} </h1>
-    </div>
-  | _ => Preact.null
+  | Some(Movie({title, summary})) => <Movie title summary />
+  | _ => <div> {Preact.string("Movie not found.")} </div>
   }
 }
 

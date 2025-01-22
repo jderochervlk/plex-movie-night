@@ -2,7 +2,21 @@ open WebAPI
 
 type media =
   | @tag("type") @as("season") Season({parentTitle: string})
-  | @tag("type") @as("movie") Movie({title: string, thumb: string, ratingKey: int})
+  | @tag("type") @as("movie")
+  Movie({
+      title: string,
+      thumb: string,
+      ratingKey: int,
+      titleSort: string,
+      tagline: string,
+      summary: string,
+      contentRating: string,
+      rating: float,
+      audienceRating: float,
+      duration: string,
+      audienceRatingImage: string,
+      ratingImage: string,
+    })
 
 module MediaContainer = {
   type mediaContainer = {

@@ -1,13 +1,5 @@
 @jsx.component
 let make = (~media: array<Plex.media>) => {
-  // let _ =
-  //   media
-  //   ->Plex.onlyMovies
-  //   ->Array.map(item => {
-  //     switch item {
-  //     | Movie({title}) => Console.log(title)
-  //     }
-  //   })
   <section class="px-4 py-8 mx-auto">
     <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
     <div
