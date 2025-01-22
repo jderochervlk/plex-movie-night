@@ -1,4 +1,4 @@
-type data = {recentlyAdded: Plex.MediaContainer.t<Plex.media>}
+type data = {recentlyAdded: Plex.MediaContainer.t}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {

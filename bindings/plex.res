@@ -1,25 +1,21 @@
 open WebAPI
 
-module Movie = {
-  type t = {title: string, thumb: string, ratingKey: int}
-}
-
 type media =
   | @tag("type") @as("season") Season({parentTitle: string})
   | @tag("type") @as("movie") Movie({title: string, thumb: string, ratingKey: int})
 
 module MediaContainer = {
-  type mediaContainer<'a> = {
+  type mediaContainer = {
     @as("Metadata")
-    metadata: array<'a>,
+    metadata: array<media>,
   }
 
-  type t<'a> = {
+  type t = {
     @as("MediaContainer")
-    mediaContainer: mediaContainer<'a>,
+    mediaContainer: mediaContainer,
   }
   @scope("JSON") @val
-  external parse: string => t<'a> = "parse"
+  external parse: string => t = "parse"
 }
 
 let createUrl = (path, ~otherParams=false) =>
@@ -40,14 +36,7 @@ let getRecent = async (~size=100, ~offset=0) => {
 }
 
 let onlyMovies = items =>
-  items
-  ->Array.map(item => {
-    // Console.info(%raw(`!!item`))
-    // Console.info(%raw(`item?.title`))
-    item
-  })
-  ->Array.filter(item => %raw(`!!item`))
-  ->Array.filter(item =>
+  items->Array.filter(item =>
     switch item {
     | Movie(_) => true
     | _ => false
@@ -71,5 +60,5 @@ let getMetadata = async ratingKey => {
   ->Promise.thenResolve(res => res->MediaContainer.parse)
 }
 
-let getFirstMovieFromMediaContainer = (mediaContainer: MediaContainer.t<Movie.t>) =>
+let getFirstMovieFromMediaContainer = (mediaContainer: MediaContainer.t) =>
   mediaContainer.mediaContainer.metadata->Array.get(0)

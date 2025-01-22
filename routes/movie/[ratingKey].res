@@ -1,8 +1,8 @@
 open WebAPI
 
-type data = Plex.MediaContainer.t<Plex.Movie.t>
+type data = Plex.MediaContainer.t
 
-let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t<Plex.Movie.t>, unknown> = {
+let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t, unknown> = {
   get: async (req, ctx) => {
     let ratingKey = ctx.params->Dict.get("ratingKey")
     switch (await Login.authCheck(req), ratingKey) {
@@ -16,7 +16,7 @@ let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t<Plex.Movie.t>, unkno
 @jsx.component
 let make = (~data: data) => {
   switch data->Plex.getFirstMovieFromMediaContainer {
-  | Some(movie) =>
+  | Some(Movie(movie)) =>
     // Console.log(movie)
     <div>
       <h1 className="text-2xl"> {Preact.string(movie.title)} </h1>
