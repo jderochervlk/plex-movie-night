@@ -11,15 +11,15 @@ let make = props => {
       <title> {"Movie Night"->Preact.string} </title>
       <link rel="stylesheet" href="/styles.css" />
     </head>
-    <body>
-      <header class="px-4 py-8 mx-auto bg-[#86efac]">
+    <body class="bg-slate-800 text-slate-50">
+      <header class="px-4 py-8 mx-auto bg-blue-900">
         <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
           <a href="/">
             <h1 class="text-4xl font-bold"> {"Movie Night"->Preact.string} </h1>
           </a>
         </div>
       </header>
-      <main className="max-width=[1700px] m-auto p-4 text-lg"> {props.component({})} </main>
+      <main className="max-width=[1700px] m-auto p-4 text-lg "> {props.component({})} </main>
     </body>
   </html>
 }

@@ -17,7 +17,7 @@ let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t, unknown> = {
 let make = (~data: data) => {
   let _ = data->Plex.getFirstMovieFromMediaContainer->Console.log
   switch data->Plex.getFirstMovieFromMediaContainer {
-  | Some(Movie({title, summary})) => <Movie title summary />
+  | Some(Movie({title, summary, thumb})) => <Movie title summary thumb />
   | _ => <div> {Preact.string("Movie not found.")} </div>
   }
 }
