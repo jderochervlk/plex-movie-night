@@ -6,6 +6,17 @@ type data = {
 }
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
+  get: async (req, ctx) => {
+    let ratingKey = ctx.params->Dict.get("ratingKey")
+    switch (await Login.authCheck(req), ratingKey) {
+    | (Some(fn), _) => fn()
+    | (None, Some(ratingKey)) => ctx.render(
+        Some({mediaContainer: await Plex.getMetadata(ratingKey), wantToWatch: "false"}),
+        None,
+      )
+    | _ => Response.redirect(~url="/")
+    }
+  },
   post: async (req, ctx) => {
     let ratingKey = ctx.params->Dict.get("ratingKey")
     let data = await req->Request.formData
@@ -24,7 +35,7 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 
 @jsx.component
 let make = (~data: data) => {
-  let _ = Console.log2(3, data.wantToWatch)
+  let wantToWatch = data.wantToWatch
   switch data.mediaContainer->Plex.getFirstMovieFromMediaContainer {
   | Some(Movie({title, summary, thumb, ratingKey})) =>
     <Movie title summary thumb ratingKey wantToWatch=data.wantToWatch />
