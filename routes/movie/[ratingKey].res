@@ -10,7 +10,8 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     let ratingKey = ctx.params->Dict.get("ratingKey")
     switch (await Login.authCheck(req), ratingKey) {
     | (Some(fn), _) => fn()
-    | (None, Some(ratingKey)) => ctx.render(
+    | (None, Some(ratingKey)) =>
+      ctx.render(
         Some({mediaContainer: await Plex.getMetadata(ratingKey), wantToWatch: "false"}),
         None,
       )
@@ -35,7 +36,6 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 
 @jsx.component
 let make = (~data: data) => {
-  let wantToWatch = data.wantToWatch
   switch data.mediaContainer->Plex.getFirstMovieFromMediaContainer {
   | Some(Movie({title, summary, thumb, ratingKey})) =>
     <Movie title summary thumb ratingKey wantToWatch=data.wantToWatch />

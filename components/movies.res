@@ -6,12 +6,12 @@ let make = (~media: array<Plex.media>) => {
       class="grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8">
       {media
       ->Plex.onlyMovies
-      ->Array.map(item =>
+      ->Array.mapWithIndex((item, index) =>
         switch item {
         | Movie({title, thumb, ratingKey}) =>
           <div>
             <a href={`/movie/${ratingKey->Int.toString}`} title>
-              <Thumbnail title thumb />
+              <Thumbnail title thumb index />
             </a>
           </div>
         | _ => Preact.null
