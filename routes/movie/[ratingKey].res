@@ -1,13 +1,22 @@
 open WebAPI
 
-type data = Plex.MediaContainer.t
+type data = {
+  mediaContainer: Plex.MediaContainer.t,
+  wantToWatch: string,
+}
 
-let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t, unknown> = {
-  get: async (req, ctx) => {
+let handler: Fresh.Handler.t<unknown, data, unknown> = {
+  post: async (req, ctx) => {
     let ratingKey = ctx.params->Dict.get("ratingKey")
+    let data = await req->Request.formData
+    Console.log2(4, data)
+    let wantToWatch = data->FormData.get2("wantToWatch")
     switch (await Login.authCheck(req), ratingKey) {
     | (Some(fn), _) => fn()
-    | (None, Some(ratingKey)) => ctx.render(Some(await Plex.getMetadata(ratingKey)), None)
+    | (None, Some(ratingKey)) => {
+        Console.log(data)
+        ctx.render(Some({mediaContainer: await Plex.getMetadata(ratingKey), wantToWatch}), None)
+      }
     | _ => Response.redirect(~url="/")
     }
   },
@@ -15,9 +24,10 @@ let handler: Fresh.Handler.t<unknown, Plex.MediaContainer.t, unknown> = {
 
 @jsx.component
 let make = (~data: data) => {
-  let _ = data->Plex.getFirstMovieFromMediaContainer->Console.log
-  switch data->Plex.getFirstMovieFromMediaContainer {
-  | Some(Movie({title, summary, thumb})) => <Movie title summary thumb />
+  let _ = Console.log2(3, data.wantToWatch)
+  switch data.mediaContainer->Plex.getFirstMovieFromMediaContainer {
+  | Some(Movie({title, summary, thumb, ratingKey})) =>
+    <Movie title summary thumb ratingKey wantToWatch=data.wantToWatch />
   | _ => <div> {Preact.string("Movie not found.")} </div>
   }
 }

@@ -12,10 +12,10 @@ let make = props => {
       <link rel="stylesheet" href="/styles.css" />
     </head>
     <body class="bg-slate-800 text-slate-50">
-      <header class="px-4 py-8 mx-auto bg-blue-900">
+      <header class="py-2 mx-auto bg-blue-900">
         <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
           <a href="/">
-            <h1 class="text-4xl font-bold"> {"Movie Night"->Preact.string} </h1>
+            <h1 class="text-2xl font-bold"> {"Movie Night"->Preact.string} </h1>
           </a>
         </div>
       </header>
