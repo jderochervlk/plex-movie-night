@@ -6,7 +6,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
       {Preact.string(`${title}${wantToWatch === "true" ? "✔️" : ""}`)}
     </h2>
     <div class="grid grid-flow-col gap-4 mb-6">
-      <Thumbnail thumb title />
+      <Thumbnail thumb title index=1 />
       <p> {Preact.string(summary)} </p>
     </div>
     <div class="grid grid-flow-col gap-4 mb-6">

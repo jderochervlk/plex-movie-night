@@ -36,5 +36,6 @@
     "bsc-flags": [
         "-open WebAPI.Global"
     ],
-    "ppx-flags": ["rescript-embed-lang/ppx"]
+    "ppx-flags": ["rescript-embed-lang/ppx"],
+    "external-stdlib" : "@rescript/std"
 }

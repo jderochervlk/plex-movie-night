@@ -1,8 +1,24 @@
+let client = EdgeDB.Client.make()
+
 type wantTowach = [#"true" | #"false"]
 
-module InsertMovie = %edgeql(`
+let insertMovie = %edgeql(`
     # @name insertMovie
     insert Movie {
-        title := <str>$title
+        ratingKey := <str>$ratingKey
+    }
+`)
+
+module SelectUser = %edgeql(`
+    # @name selectUser
+    select User {
+        name := <str>$name
+    }
+`)
+
+module InsertUser = %edgeql(`
+    # @name insertUser
+    insert User {
+        name := <str>$name
     }
 `)

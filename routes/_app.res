@@ -15,7 +15,7 @@ let make = props => {
       <header class="py-2 mx-auto bg-blue-900">
         <div class="max-w-screen-md mx-auto flex flex-col items-center justify-center">
           <a href="/">
-            <h1 class="text-2xl font-bold"> {"Movie Night"->Preact.string} </h1>
+            <h1 class="text-xl font-bold"> {"Movie Night"->Preact.string} </h1>
           </a>
         </div>
       </header>

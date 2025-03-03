@@ -2,6 +2,9 @@ type data = {recentlyAdded: Plex.MediaContainer.t}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
+    let client = Db.client
+    let res = await client->Db.insertMovie({ratingKey: "titanic"})
+    Console.log(res)
     switch await Login.authCheck(req) {
     | Some(fn) => fn()
     | None =>

@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "rescript": "12.0.0-alpha.7"
+    },
+    "overrides": {
+        "rescript": "12.0.0-alpha.7"
+    }
+}
