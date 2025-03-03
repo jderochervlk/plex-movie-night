@@ -37,7 +37,7 @@
     "@rescript/webapi": "npm:@rescript/webapi@experimental",
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
-    "edgedb": "npm:edgedb@latest",
+    "edgedb": "npm:edgedb@1.3.6",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
     "rescript-edgedb": "npm:rescript-edgedb", 

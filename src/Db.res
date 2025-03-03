@@ -9,14 +9,14 @@ let insertMovie = %edgeql(`
     }
 `)
 
-module SelectUser = %edgeql(`
+let selectUser = %edgeql(`
     # @name selectUser
     select User {
         name := <str>$name
     }
 `)
 
-module InsertUser = %edgeql(`
+let insertUser = %edgeql(`
     # @name insertUser
     insert User {
         name := <str>$name
