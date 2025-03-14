@@ -1,4 +1,4 @@
-// @sourceHash fc2882af871b8fe0b0fa337d02eb8b9d
+// @sourceHash 8f98604ce8f44dd57c944bc9c80d1b04
 
 module InsertMovie = {
   let queryText = `# @name insertMovie
@@ -75,5 +75,31 @@ module InsertUser = {
   @live
   let transaction = (transaction: EdgeDB.Transaction.t, args: args): promise<result<response, EdgeDB.Error.errorFromOperation>> => {
     transaction->EdgeDB.TransactionHelpers.singleRequired(queryText, ~args)
+  }
+}
+
+module AddMovieToUser = {
+  let queryText = `# @name addMovieToUser
+      update User
+      filter .name = "Josh"
+      set { movies := [<str>$ratingKey]++.movies }`
+  
+  @live  
+  type args = {
+    ratingKey: string,
+  }
+  
+  type response = {
+    id: string,
+  }
+  
+  @live
+  let query = (client: EdgeDB.Client.t, args: args): promise<array<response>> => {
+    client->EdgeDB.QueryHelpers.many(queryText, ~args)
+  }
+  
+  @live
+  let transaction = (transaction: EdgeDB.Transaction.t, args: args): promise<array<response>> => {
+    transaction->EdgeDB.TransactionHelpers.many(queryText, ~args)
   }
 }

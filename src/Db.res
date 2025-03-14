@@ -22,3 +22,10 @@ let insertUser = %edgeql(`
         name := <str>$name
     }
 `)
+
+let addMovieToUser = %edgeql(`
+    # @name addMovieToUser
+    update User
+    filter .name = "Josh"
+    set { movies := [<str>$ratingKey]++.movies }
+`)
