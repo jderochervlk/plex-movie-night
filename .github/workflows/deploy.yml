@@ -23,17 +23,6 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Cache
-        uses: actions/cache@v4.2.0
-        with:
-          key: ${{ runner.os }}-${{ hashFiles('deno.lock') }}
-          path: |
-            node_modules
-            lib
-
-      - name: Pre-build step
-        run: deno install --allow-scripts
-
       - name: Build step
         run: "deno task build"
 
@@ -41,7 +30,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "vlk-movie-night"
-          entrypoint: "main.js"
-          root: "_fresh"
+          entrypoint: "main.ts"
+          root: "."
           
           
