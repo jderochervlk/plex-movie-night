@@ -38,6 +38,6 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: "vlk-movie-night"
-          entrypoint: "main.ts"
+          entrypoint: "./main.ts"
           
           
