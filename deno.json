@@ -41,6 +41,7 @@
     "project": "88392f6c-905b-4d2d-9bf8-2f0ced554bfd",
     "exclude": ["node_modules"],
     "include": [],
-    "entrypoint": "main.ts"
+    "entrypoint": "main.ts",
+    "root": "."
   }
 }
