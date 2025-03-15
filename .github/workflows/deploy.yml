@@ -39,6 +39,5 @@ jobs:
         with:
           project: "vlk-movie-night"
           entrypoint: "main.ts"
-          root: "."
           
           
