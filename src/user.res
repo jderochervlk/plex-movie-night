@@ -2,7 +2,6 @@ open WebAPI
 
 let getMovies = async (~name) => {
   let client = Db.client
-  let user = await client->Db.selectUser({name: name})
   switch await client->Db.selectUser({name: name}) {
   | [user] => user.movies->Null.getOr([])->Set.fromArray
   | _ => Set.make()
