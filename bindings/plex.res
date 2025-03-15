@@ -46,7 +46,11 @@ let getRecent = async (~size=100, ~offset=0) => {
   )
   ->Promise.then(Response.json)
   ->Promise.thenResolve(res => res->JSON.stringify)
-  ->Promise.thenResolve(MediaContainer.parse)
+  ->Promise.thenResolve(t => Some(MediaContainer.parse(t)))
+  ->Promise.catch(err => {
+    Console.error(err)
+    Promise.resolve(None)
+  })
 }
 
 let onlyMovies = items =>
@@ -71,7 +75,11 @@ let getMetadata = async ratingKey => {
   )
   ->Promise.then(Response.json)
   ->Promise.thenResolve(res => res->JSON.stringify)
-  ->Promise.thenResolve(res => res->MediaContainer.parse)
+  ->Promise.thenResolve(res => Some(res->MediaContainer.parse))
+  ->Promise.catch(exn => {
+    Console.error(exn)
+    Promise.resolve(None)
+  })
 }
 
 let getFirstMovieFromMediaContainer = (mediaContainer: MediaContainer.t) =>

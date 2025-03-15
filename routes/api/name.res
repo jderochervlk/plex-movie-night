@@ -1,6 +1,6 @@
 open WebAPI
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
-  post: async (req, _ctx) => {
+  post: async (req: FetchAPI.request, _ctx) => {
     let data = await req->Request.formData
     let name = data->FormData.get2("name")
     switch await Login.isAuthenticated(req) {
