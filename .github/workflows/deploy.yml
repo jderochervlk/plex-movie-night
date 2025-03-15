@@ -33,7 +33,7 @@ jobs:
             lib
 
       - name: Pre-build step
-        run: deno install --allow-scripts=npm:rescript-embed-lang@0.5.5,npm:rescript@12.0.0-alpha.7,npm:rescript@11.1.4
+        run: deno install --allow-scripts
 
       - name: Build step
         run: "deno task build"
