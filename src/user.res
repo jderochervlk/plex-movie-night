@@ -3,7 +3,6 @@ open WebAPI
 let getMovies = async (~name) => {
   let client = Db.client
   let user = await client->Db.selectUser({name: name})
-  Console.log(user)
   switch await client->Db.selectUser({name: name}) {
   | [user] => user.movies->Null.getOr([])->Set.fromArray
   | _ => Set.make()
@@ -13,7 +12,6 @@ let getMovies = async (~name) => {
 let toggleMovie = async (~name, ~ratingKey, ~wantToWatch) => {
   let client = Db.client
   let movies = await getMovies(~name)
-  Console.log(movies)
   let wantToWatch = wantToWatch === "true"
   if movies->Set.has(ratingKey) {
     if wantToWatch {
@@ -40,3 +38,29 @@ let getCurrentUser = (req: FetchAPI.request) =>
   ->Std.Http.Cookies.get
   ->Dict.get("name")
   ->Option.getUnsafe // we can get this unsafe since we already redirect if the user doesn't exist
+
+/**
+ Make sure all the users defined in the env exist in the DB
+ */
+let createAllUsers = async () => {
+  let client = Db.client
+  let users = Env.names()
+  for i in 0 to users->Array.length {
+    switch users[i] {
+    | Some(name) =>
+      // check if user exists
+      switch await client->Db.selectUser({name: name}) {
+      | [_] => () // if user already exists, do nothing
+      | _ => {
+          // if user doesn't exist, create user
+          let res = await client->Db.insertUser({name: name})
+          switch res {
+          | Ok(_) => ()
+          | Error(err) => Console.error(err)
+          }
+        }
+      }
+    | None => ()
+    }
+  }
+}

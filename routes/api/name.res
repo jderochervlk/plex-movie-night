@@ -1,10 +1,13 @@
 open WebAPI
+
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   post: async (req: FetchAPI.request, _ctx) => {
     let data = await req->Request.formData
     let name = data->FormData.get2("name")
     switch await Login.isAuthenticated(req) {
     | true => {
+        let _ = User.createAllUsers()
+
         let headers = Headers.make()
         headers->Headers.set(~name="location", ~value="/")
         headers->Std.Http.Cookies.set({
