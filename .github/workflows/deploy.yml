@@ -19,7 +19,7 @@ jobs:
       - name: Install Deno
         uses: denoland/setup-deno@v2
         with:
-          deno-version: v2.1.0
+          deno-version: v2.x
 
       - name: Cache
         uses: actions/cache@v4.2.0
@@ -30,7 +30,7 @@ jobs:
             lib
 
       - name: Pre-build step
-        run: deno install --allow-scripts=npm:rescript-embed-lang@0.5.5,npm:rescript@12.0.0-alpha.7
+        run: deno install --allow-scripts=npm:rescript-embed-lang@0.5.5,npm:rescript@12.0.0-alpha.7,npm:rescript@11.1.4
 
       - name: Build step
         run: "deno task build"
