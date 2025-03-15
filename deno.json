@@ -32,9 +32,9 @@
     "rescript-edgedb": "npm:rescript-edgedb",
     "rescript-embed-lang": "npm:rescript-embed-lang",
     "rescript": "npm:rescript@12.0.0-alpha.9",
-    "tailwindcss": "npm:tailwindcss@4.0.14",
-    "tailwindcss/": "npm:/tailwindcss@4.0.14/",
-    "tailwindcss/plugin": "npm:/tailwindcss@4.0.14/plugin.js"
+    "tailwindcss": "npm:tailwindcss@3.4.1",
+    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
+    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
   },
   "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
   "nodeModulesDir": "auto",

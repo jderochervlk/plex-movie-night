@@ -1516,7 +1516,7 @@
       "npm:rescript-edgedb@*",
       "npm:rescript-embed-lang@*",
       "npm:rescript@12.0.0-alpha.9",
-      "npm:tailwindcss@4.0.14"
+      "npm:tailwindcss@3.4.1"
     ]
   }
 }
