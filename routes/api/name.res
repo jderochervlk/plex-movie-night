@@ -4,7 +4,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   post: async (req: FetchAPI.request, _ctx) => {
     let data = await req->Request.formData
     let name = data->FormData.get2("name")
-    switch await Login.isAuthenticated(req) {
+    switch await Utils.isAuthenticated(req) {
     | true => {
         let _ = User.createAllUsers()
 
@@ -13,7 +13,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
         headers->Std.Http.Cookies.set({
           name: "name",
           value: name,
-          expires: Login.sixMonthsFromNow(),
+          expires: Utils.sixMonthsFromNow(),
           sameSite: "Lax",
           domain: req->Utils.getHostname,
           path: "/",

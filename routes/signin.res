@@ -2,7 +2,7 @@ open WebAPI
 
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   get: async (req, ctx) => {
-    let isAllowed = await Login.isAuthenticated(req)
+    let isAllowed = await Utils.isAuthenticated(req)
     switch isAllowed {
     | true => Response.redirect(~url="/")
     | false => ctx.render(None, None)

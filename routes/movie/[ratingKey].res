@@ -17,7 +17,7 @@ module Data = {
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
     let ratingKey = ctx.params->Dict.get("ratingKey")
-    switch (await Login.authCheck(req), ratingKey) {
+    switch (await Utils.authCheck(req), ratingKey) {
     | (Some(fn), _) => fn()
     | (None, Some(ratingKey)) => {
         let wantToWatch = await User.doesUserWantToWatch(~name=User.getCurrentUser(req), ~ratingKey)
@@ -31,7 +31,7 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     let ratingKey = ctx.params->Dict.get("ratingKey")
     let data = await req->Request.formData
     let wantToWatch = data->FormData.get2("wantToWatch")
-    switch (await Login.authCheck(req), ratingKey) {
+    switch (await Utils.authCheck(req), ratingKey) {
     | (Some(fn), _) => fn()
     | (None, Some(ratingKey)) =>
       await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
