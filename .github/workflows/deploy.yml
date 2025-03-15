@@ -1,8 +1,9 @@
 name: Deploy
 on:
   push:
+    branches: main
   pull_request:
-  workflow_dispatch:
+    branches: main
 
 jobs:
   deploy:
@@ -22,16 +23,13 @@ jobs:
         with:
           deno-version: v2.x
 
-      - name: Cache
-        uses: actions/cache@v4.2.0
+      - name: Install Node.js
+        uses: actions/setup-node@v4
         with:
-          key: ${{ runner.os }}-${{ hashFiles('deno.lock') }}
-          path: |
-            node_modules
-            lib
+          node-version: lts/*
 
-      - name: Pre-build step
-        run: deno install --allow-scripts
+      - name: Install step
+        run: "deno task prepare"
 
       - name: Build step
         run: "deno task build"
