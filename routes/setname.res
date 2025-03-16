@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   get: async (req, ctx) => {
     let hasName = await Utils.hasNameSet(req)
@@ -16,5 +17,5 @@ let make = () => {
     <NameForm />
   </div>
 }
-
+@live
 let default = make

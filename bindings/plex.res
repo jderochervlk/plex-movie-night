@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 type media =
   | @tag("type") @as("season") Season({parentTitle: string})
   | @tag("type") @as("movie")
@@ -32,7 +33,7 @@ module MediaContainer = {
   external parse: string => t = "parse"
 }
 
-let createUrl = (path, ~otherParams=false) =>
+let createUrl = (path, ~otherParams) =>
   `${Env.plexServer()}${path}${otherParams ? "&" : "?"}X-Plex-Token=${Env.plexToken()}`
 
 let getRecent = async (~size=100, ~offset=0) => {

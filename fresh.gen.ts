@@ -10,7 +10,7 @@ import * as $index from "./routes/index.mjs";
 import * as $movie_ratingKey_ from "./routes/movie/[ratingKey].mjs";
 import * as $setname from "./routes/setname.mjs";
 import * as $signin from "./routes/signin.mjs";
-
+import * as $toggle from "./islands/toggle.mjs";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -24,7 +24,9 @@ const manifest = {
     "./routes/setname.mjs": $setname,
     "./routes/signin.mjs": $signin,
   },
-  islands: {},
+  islands: {
+    "./islands/toggle.mjs": $toggle,
+  },
   baseUrl: import.meta.url,
 } satisfies Manifest;
 

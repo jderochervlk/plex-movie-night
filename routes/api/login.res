@@ -1,6 +1,6 @@
 open WebAPI
-type data = {isAllowed: bool}
 
+@live
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   post: async (req, _ctx) => {
     if await Utils.doesPasswordMatch(req) {

@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   get: async (req, ctx) => {
     let isAllowed = await Utils.isAuthenticated(req)
@@ -17,4 +18,5 @@ let make = () => {
   </div>
 }
 
+@live
 let default = make

@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
   post: async (req: FetchAPI.request, _ctx) => {
     let data = await req->Request.formData

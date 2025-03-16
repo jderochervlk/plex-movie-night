@@ -1,5 +1,3 @@
-// import { Head } from "$fresh/runtime.ts";
-
 @jsx.component
 let make = () => {
   <>
@@ -23,4 +21,5 @@ let make = () => {
   </>
 }
 
+@live
 let default = make

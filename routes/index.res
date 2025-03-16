@@ -1,5 +1,6 @@
 type data = {recentlyAdded: Plex.MediaContainer.t}
 
+@live
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
     switch await Utils.authCheck(req) {
@@ -26,4 +27,5 @@ let make = (~data: option<data>) =>
     </div>
   }
 
+@live
 let default = make
