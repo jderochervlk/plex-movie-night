@@ -50,3 +50,14 @@ let authCheck = async req => {
   | (true, false) => Some(() => Response.redirect(~url=`${req.url}setname`))
   }
 }
+
+let getRootUrl = (url: string) => {
+  let prefix = url->String.includes("http://") ? "http://" : "https://"
+  url
+  ->String.replace("http://", "")
+  ->String.replace("https://", "")
+  ->String.split("/")
+  ->Array.at(0)
+  ->Option.map(url => prefix ++ url)
+  ->Option.getOr("/")
+}

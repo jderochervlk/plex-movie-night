@@ -24,10 +24,12 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
         let data = await Data.make(ratingKey, wantToWatch)
         ctx.render(data, None)
       }
-    | _ => Response.redirect(~url="/")
+    | _ => Response.redirect(~url=Utils.getRootUrl(req.url))
     }
   },
   post: async (req, ctx) => {
+    let home = Utils.getRootUrl(req.url)
+
     let ratingKey = ctx.params->Dict.get("ratingKey")
     let data = await req->Request.formData
     let wantToWatch = data->FormData.get2("wantToWatch")
@@ -35,9 +37,8 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     | (Some(fn), _) => fn()
     | (None, Some(ratingKey)) =>
       await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
-      let data = await Data.make(ratingKey, wantToWatch)
-      ctx.render(data, None)
-    | _ => Response.redirect(~url="/")
+      Response.redirect(~url=home)
+    | _ => Response.redirect(~url=home)
     }
   },
 }
