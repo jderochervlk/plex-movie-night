@@ -2,15 +2,14 @@
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
   <div class="max-w-[900px] m-auto">
     <h2 class="text-3xl text-center m-3"> {Preact.string(title)} </h2>
-    <div class="grid grid-flow-col gap-4 mb-6">
-      <div class="">
-        <Thumbnail thumb title index=1 wantToWatch={wantToWatch == "true"} />
-      </div>
-      <p> {Preact.string(summary)} </p>
+    <div class="content flex py-2 ">
+      <img src={thumb->Plex.getThumb} class="object-contain h-[100px]" />
+      // <Thumbnail thumb title index=1 wantToWatch={wantToWatch == "true"} />
+
+      <p class="item-body px-2"> {Preact.string(summary)} </p>
     </div>
     <div class="grid grid-flow-col gap-4 mb-6">
       // Critic scores?
-      <img />
       <form method="post">
         <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
         <input
