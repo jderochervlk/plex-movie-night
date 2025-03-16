@@ -1,7 +1,7 @@
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
   <>
-    <div class="relative w-full">
+    <div class="relative w-full rounded-lg">
       <img
         loading={index > 5 ? #lazy : #eager}
         title
@@ -13,7 +13,9 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
         ? {
             <>
               <div
-                class="absolute inset-0 flex items-center justify-center bg-gray-500 opacity-80 rounded-md">
+                class="
+                inset-0 flex items-center justify-center opacity-80 rounded-md h-[75px] relative mt-[-75px]
+                bg-gradient-to-t from-gray-700 from-10% via-30% to-transparent to-90%">
                 <h2 class="text-white text-3xl font-bold text-center">
                   {Preact.string("✔️")}
                 </h2>
