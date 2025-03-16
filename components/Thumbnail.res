@@ -6,7 +6,7 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
       title
       alt=title
       src={Plex.getThumb(thumb)}
-      className="object-cover rounded-md w-full h-full"
+      class="object-cover rounded-md w-full h-full"
     />
     {wantToWatch
       ? {

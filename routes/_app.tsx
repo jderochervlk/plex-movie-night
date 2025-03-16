@@ -18,7 +18,7 @@ export default function ({ Component }: PageProps) {
             </a>
           </div>
         </header>
-        <main className="max-width=[1700px] m-auto p-4 text-lg ">
+        <main class="max-width=[1700px] m-auto p-4 text-lg ">
           <Component />
         </main>
       </body>

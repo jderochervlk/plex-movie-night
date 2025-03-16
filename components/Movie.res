@@ -1,9 +1,11 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
   <div class="max-w-[900px] m-auto">
-    <h2 className="text-3xl text-center m-3"> {Preact.string(title)} </h2>
+    <h2 class="text-3xl text-center m-3"> {Preact.string(title)} </h2>
     <div class="grid grid-flow-col gap-4 mb-6">
-      <Thumbnail thumb title index=1 wantToWatch={wantToWatch == "true"} />
+      <div class="">
+        <Thumbnail thumb title index=1 wantToWatch={wantToWatch == "true"} />
+      </div>
       <p> {Preact.string(summary)} </p>
     </div>
     <div class="grid grid-flow-col gap-4 mb-6">
