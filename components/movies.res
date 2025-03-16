@@ -1,5 +1,5 @@
 @jsx.component
-let make = (~media: array<Plex.media>) => {
+let make = (~media: array<Plex.media>, ~wantToWatch: array<string>) => {
   <section class="px-4 py-8 mx-auto">
     <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
     <div
@@ -11,7 +11,9 @@ let make = (~media: array<Plex.media>) => {
         | Movie({title, thumb, ratingKey}) =>
           <div>
             <a href={`/movie/${ratingKey->Int.toString}`} title>
-              <Thumbnail title thumb index />
+              <Thumbnail
+                title thumb index wantToWatch={wantToWatch->Array.includes(ratingKey->Int.toString)}
+              />
             </a>
           </div>
         | _ => Preact.null
