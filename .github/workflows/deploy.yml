@@ -27,8 +27,8 @@ jobs:
         id: node-cache
         with:
           path: |
-            - **/node_modules
-            - **/lib
+            - ./node_modules
+            - ./lib
           key: cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
           restore-keys: |
             - cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
