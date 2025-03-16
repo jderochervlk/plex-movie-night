@@ -44,7 +44,9 @@
     "exclude": [
       "node_modules",
       "lib",
-      "**/*.res"
+      "**/*.res",
+      "**/*.resi",
+      "dbschema"
     ]
   }
 }
