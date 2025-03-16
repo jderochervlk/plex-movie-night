@@ -1,13 +1,13 @@
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
   <>
-    <div class="relative">
+    <div class="relative w-full">
       <img
         loading={index > 5 ? #lazy : #eager}
         title
         alt=title
         src={Plex.getThumb(thumb)}
-        className="object-cover rounded-md"
+        className="object-cover rounded-md w-full"
       />
       {wantToWatch
         ? {
