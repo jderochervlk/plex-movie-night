@@ -12,8 +12,8 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
       {wantToWatch
         ? {
             <>
-              <div class="absolute inset-0 bg-gray-700 opacity-60 rounded-md" />
-              <div class="absolute inset-0 flex items-center justify-center">
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-gray-500 opacity-80 rounded-md">
                 <h2 class="text-white text-3xl font-bold text-center">
                   {Preact.string("✔️")}
                 </h2>
