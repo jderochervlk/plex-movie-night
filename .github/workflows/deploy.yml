@@ -22,20 +22,26 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-
+      
       - uses: actions/cache@v4
         id: node-cache
         with:
           path: |
-            - node_modules
-            - lib
-          key: ${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
+            - **/node_modules
+            - **/lib
+          key: cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
+          restore-keys: |
+            - cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
+            - cache-${{ runner.os }}
+            - cache
 
       - name: Install step
         run: "deno task prepare"
 
       - name: Build step
         run: "deno task build"
+
+      - run: ls .
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
