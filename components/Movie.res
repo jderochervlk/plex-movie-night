@@ -3,7 +3,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
   <div class="max-w-[900px] m-auto">
     <div class="mb-8">
       <img
-        src={thumb->Plex.getThumb}
+        src={thumb->Plex.Api.getThumb}
         class="object-contain h-[250px] float-right ml-4 mb-1 rounded-lg md:h-[350px]"
       />
       <h2 class="text-2xl m-3 md:text-3xl font-bold"> {Preact.string(title)} </h2>

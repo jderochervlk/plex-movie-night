@@ -1,6 +1,8 @@
 open WebAPI
 
 module MediaContainer = {
+  // Even though we don't build things with this constructor it is used for pattern matching on external data
+  @@warning("-37")
   type media =
     | @tag("type") @as("season") Season({\"type": string})
     | @tag("type") @as("movie") Movie({\"type": string})
@@ -16,8 +18,6 @@ module MediaContainer = {
   @scope("JSON") @val
   external parse: string => t = "parse"
 }
-
-let testVal: MediaContainer.media = Movie({\"type": "movie"})
 
 module Movie = {
   type t = {
@@ -84,10 +84,10 @@ module Api = {
 
     movies->Option.flatMap(movies => movies[0])
   }
-}
 
-let getThumb = url =>
-  Api.createUrl(
-    `/photo/:/transcode?width=248&height=372&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
-    ~otherParams=true,
-  )
+  let getThumb = url =>
+    createUrl(
+      `/photo/:/transcode?width=248&height=372&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
+      ~otherParams=true,
+    )
+}

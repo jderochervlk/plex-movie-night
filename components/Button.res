@@ -1,7 +1,7 @@
-@jsx.component
 type props = {
   ...JsxDOM.domProps,
 }
+
 let make = props => {
   <button
     {...props}
