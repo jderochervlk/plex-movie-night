@@ -1,4 +1,4 @@
-type data = {recentlyAdded: Plex.MediaContainer.t, moviesToWatch: array<string>}
+type data = {recentlyAdded: array<Plex.Movie.t>, moviesToWatch: array<string>}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
@@ -9,7 +9,7 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
         let moviesToWatch =
           await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
         ctx.render(
-          switch await Plex.getRecent() {
+          switch await Plex.Api.getRecent() {
           | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch})
           | None => None
           },
@@ -26,7 +26,7 @@ let make = (~data: option<data>) =>
   | Some(data) =>
     <>
       <p> {Preact.string("search")} </p>
-      <Movies media=data.recentlyAdded.mediaContainer.metadata wantToWatch=data.moviesToWatch />
+      <Movies movies=data.recentlyAdded wantToWatch=data.moviesToWatch />
     </>
   | None =>
     <div className="w-full text-xl p-5 text-center">

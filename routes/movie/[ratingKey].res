@@ -1,14 +1,14 @@
 open WebAPI
 
 type data = {
-  mediaContainer: Plex.MediaContainer.t,
+  movie: Plex.Movie.t,
   wantToWatch: string,
 }
 
 module Data = {
   let make = async (ratingKey, wantToWatch) => {
-    switch await Plex.getMetadata(ratingKey) {
-    | Some(mediaContainer) => Some({mediaContainer, wantToWatch})
+    switch await Plex.Api.getMovie(ratingKey) {
+    | Some(movie) => Some({movie, wantToWatch})
     | None => None
     }
   }
@@ -45,13 +45,10 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 
 @jsx.component
 let make = (~data: option<data>) => {
-  let wantToWatch = data->Option.map(data => data.wantToWatch)->Option.getOr("false")
-  switch data
-  ->Option.map(data => data.mediaContainer)
-  ->Option.flatMap(Plex.getFirstMovieFromMediaContainer) {
-  | Some(Movie({title, summary, thumb, ratingKey})) =>
+  switch data {
+  | Some({movie: {title, summary, thumb, ratingKey}, wantToWatch}) =>
     <Movie title summary thumb ratingKey wantToWatch />
-  | _ =>
+  | None =>
     <section className="w-full text-center text-xl p-4">
       <h2 className="mb-6"> {Preact.string("Movie not found.")} </h2>
       <a className="text-blue-200 underline hover:text-blue-500 cursor-pointer" href="/">
