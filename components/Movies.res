@@ -2,9 +2,9 @@
  Renders a grid of movies with an overlay if that movie is on a user's watchlist
  */
 @jsx.component
-let make = (~movies: array<Plex.Movie.t>, ~wantToWatch: array<string>) => {
+let make = (~movies: array<Plex.Movie.t>, ~wantToWatch: array<string>, ~heading) => {
   <section class="px-4 py-8 mx-auto">
-    <h2 class="text-center text-xl mb-5"> {"Recently Added"->Preact.string} </h2>
+    <h2 class="text-center text-xl mb-5"> {heading->Preact.string} </h2>
     <div
       class="grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8">
       {movies

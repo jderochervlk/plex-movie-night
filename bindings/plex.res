@@ -6,14 +6,30 @@ module MediaContainer = {
   type media =
     | @tag("type") @as("season") Season({\"type": string})
     | @tag("type") @as("movie") Movie({\"type": string})
+
+  type library =
+    | @tag("type") @as("movie") Movie({\"type": string, uuid: string})
+    | @tag("type") @as("show") Show({\"type": string, uuid: string})
+
+  type hub = {
+    \"type": string,
+    size: int,
+    @as("Metadata")
+    metadata: option<array<media>>,
+  }
+
   type mediaContainer = {
     @as("Metadata")
-    metadata: array<media>,
+    metadata: option<array<media>>,
+    @as("Directory")
+    directory: array<library>,
+    @as("Hub")
+    hub: array<hub>,
   }
 
   type t = {
     @as("MediaContainer")
-    mediaContainer: mediaContainer,
+    mediaContainer: option<mediaContainer>,
   }
   @scope("JSON") @val
   external parse: string => t = "parse"
@@ -38,6 +54,8 @@ module Movie = {
 }
 
 module Api = {
+  let headers = Headers.make(~init=[["Accept", "application/json"]])
+
   let onlyMovies = (items: array<MediaContainer.media>) =>
     items
     ->Array.filter(item =>
@@ -56,7 +74,9 @@ module Api = {
     ->Promise.then(Response.json)
     ->Promise.thenResolve(res => res->JSON.stringify)
     ->Promise.thenResolve(t =>
-      Some(MediaContainer.parse(t))->Option.map(x => x.mediaContainer.metadata->onlyMovies)
+      MediaContainer.parse(t).mediaContainer
+      ->Option.flatMap(mediaContainer => mediaContainer.metadata)
+      ->Option.map(onlyMovies)
     )
     ->Promise.catch(err => {
       Console.error(err)
@@ -64,7 +84,6 @@ module Api = {
     })
 
   let getRecent = async (~size=100, ~offset=0) => {
-    let headers = Headers.make(~init=[["Accept", "application/json"]])
     await fetch(
       createUrl(
         `/library/recentlyAdded?X-Plex-Container-Size=${size->Int.toString}&X-Plex-Container-Start=${offset->Int.toString}`,
@@ -75,7 +94,6 @@ module Api = {
   }
 
   let getMovie = async ratingKey => {
-    let headers = Headers.make(~init=[["Accept", "application/json"]])
     let movies =
       await fetch(
         createUrl(`/library/metadata/${ratingKey}`, ~otherParams=false),
@@ -84,6 +102,68 @@ module Api = {
 
     movies->Option.flatMap(movies => movies[0])
   }
+
+  let getId = (directory: array<MediaContainer.library>) =>
+    directory
+    ->Array.filter(library =>
+      switch library {
+      | Movie(_) => true
+      | Show(_) => false
+      }
+    )
+    ->Array.at(0)
+    ->Option.map(library =>
+      switch library {
+      | Movie({uuid}) => uuid
+      | Show({uuid}) => uuid
+      }
+    )
+
+  let getMovieLibraryId = async () =>
+    await fetch(createUrl(`/library/sections/`), ~init={headers: headers->HeadersInit.fromHeaders})
+    ->Promise.then(Response.json)
+    ->Promise.thenResolve(res => res->JSON.stringify)
+    ->Promise.thenResolve(t =>
+      Some(MediaContainer.parse(t))
+      ->Option.flatMap(x => {
+        x.mediaContainer
+      })
+      ->Option.flatMap(mediaContainer => mediaContainer.directory->getId)
+    )
+    ->Promise.catch(err => {
+      Console.error(err)
+      Promise.resolve(None)
+    })
+
+  let search = async () =>
+    switch await getMovieLibraryId() {
+    | Some(id) =>
+      await fetch(
+        createUrl(`/hubs/search/?query="gladiator"&sectionId=${id}`, ~otherParams=true),
+        ~init={headers: headers->HeadersInit.fromHeaders},
+      )
+      ->Promise.then(Response.json)
+      ->Promise.thenResolve(res => res->JSON.stringify)
+      ->Promise.thenResolve(t =>
+        MediaContainer.parse(t).mediaContainer
+        ->Option.flatMap(mediaContainer =>
+          mediaContainer.hub->Array.find(hub => hub.\"type" == "movie")
+        )
+        ->Option.flatMap(x => {
+          x.metadata
+        })
+        ->Option.map(onlyMovies)
+      )
+      ->Promise.catch(err => {
+        Console.error(err)
+        Promise.resolve(None)
+      })
+
+    | None => {
+        Console.error("No valid movie library was found")
+        None
+      }
+    }
 
   let getThumb = url =>
     createUrl(

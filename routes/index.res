@@ -24,10 +24,8 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
-    <>
-      <p> {Preact.string("search")} </p>
-      <Movies movies=data.recentlyAdded wantToWatch=data.moviesToWatch />
-    </>
+    <Movies movies=data.recentlyAdded wantToWatch=data.moviesToWatch heading="Recently Added" />
+
   | None =>
     <div className="w-full text-xl p-5 text-center">
       {Preact.string("Something went wrong connecting to Plex.")}

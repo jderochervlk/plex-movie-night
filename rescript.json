@@ -34,7 +34,8 @@
         "rescript-edgedb"
     ],
     "bsc-flags": [
-        "-open WebAPI.Global"
+        "-open WebAPI.Global",
+        "-open Html"
     ],
     "ppx-flags": ["rescript-embed-lang/ppx"],
     "external-stdlib" : "@rescript/std"
