@@ -46,8 +46,11 @@ let isAuthenticated = async (req: FetchAPI.request) => {
 let authCheck = async req => {
   switch (await isAuthenticated(req), await hasNameSet(req)) {
   | (true, true) => None
-  | (false, _) => Some(() => Response.redirect(~url=`${req.url}signin`))
-  | (true, false) => Some(() => Response.redirect(~url=`${req.url}setname`))
+  | (false, _) => {
+      Console.log(`${req.url}/signin`)
+      Some(() => Response.redirect(~url=`${req.url}/signin`))
+    }
+  | (true, false) => Some(() => Response.redirect(~url=`${req.url}/setname`))
   }
 }
 

@@ -135,11 +135,11 @@ module Api = {
       Promise.resolve(None)
     })
 
-  let search = async () =>
+  let search = async query =>
     switch await getMovieLibraryId() {
     | Some(id) =>
       await fetch(
-        createUrl(`/hubs/search/?query="gladiator"&sectionId=${id}`, ~otherParams=true),
+        createUrl(`/hubs/search/?query="${query}"&sectionId=${id}`, ~otherParams=true),
         ~init={headers: headers->HeadersInit.fromHeaders},
       )
       ->Promise.then(Response.json)

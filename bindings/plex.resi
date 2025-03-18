@@ -18,5 +18,5 @@ module Api: {
   let getRecent: (~size: int=?, ~offset: int=?) => promise<option<array<Movie.t>>>
   let getMovie: string => promise<option<Movie.t>>
   let getThumb: string => string
-  let search: unit => promise<option<array<Movie.t>>>
+  let search: string => promise<option<array<Movie.t>>>
 }

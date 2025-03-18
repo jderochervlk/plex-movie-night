@@ -1,6 +1,6 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
-  <div class="max-w-[900px] m-auto">
+  <section class="max-w-screen-lg m-auto">
     <div class="mb-8">
       <img
         src={thumb->Plex.Api.getThumb}
@@ -23,7 +23,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
         {Preact.string(wantToWatch === "true" ? "Remove from watchlist" : "Add to watchlist")}
       </button>
     </form>
-  </div>
+  </section>
   // Cast circles
   // crew details
 }
