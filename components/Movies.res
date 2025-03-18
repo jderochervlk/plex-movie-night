@@ -2,7 +2,7 @@
  Renders a grid of movies with an overlay if that movie is on a user's watchlist
  */
 @jsx.component
-let make = (~movies: array<Plex.Movie.t>, ~wantToWatch: array<string>, ~heading) => {
+let make = (~movies: array<Plex.Movie.t>, ~wantToWatch: array<string>, ~heading, ~redirect) => {
   <section class="px-4 py-8 mx-auto max-w-screen-2xl">
     <h2 class="text-center text-xl mb-5"> {heading->Preact.string} </h2>
     <div
@@ -10,7 +10,7 @@ let make = (~movies: array<Plex.Movie.t>, ~wantToWatch: array<string>, ~heading)
       {movies
       ->Array.mapWithIndex(({title, thumb, ratingKey}, index) =>
         <div>
-          <a href={`/movie/${ratingKey->Int.toString}`} title>
+          <a href={`/movie/${ratingKey->Int.toString}?redirect=${redirect}`} title>
             <Thumbnail
               title thumb index wantToWatch={wantToWatch->Array.includes(ratingKey->Int.toString)}
             />

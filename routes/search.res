@@ -4,7 +4,24 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
   get: async (req, ctx) => {
     switch await Utils.authCheck(req) {
     | Some(fn) => fn()
-    | None => ctx.render(Some({movies: [], moviesToWatch: [], query: ""}), None)
+    | None => {
+        let user = User.getCurrentUser(req)
+        let moviesToWatch =
+          await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
+
+        let query =
+          ctx.url.search
+          ->String.split("=")
+          ->Array.at(1)
+          ->Option.map(decodeURIComponent)
+          ->Option.getOr("")
+
+        let data = switch await Plex.Api.search(query) {
+        | Some(movies) => Some({movies, moviesToWatch, query})
+        | None => Some({movies: [], moviesToWatch, query})
+        }
+        ctx.render(data, None)
+      }
     }
   },
   post: async (req, ctx) => {
@@ -36,19 +53,23 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 let make = (~data: option<data>) => {
   <section>
     {switch data {
-    | Some({movies, moviesToWatch, query}) => <>
-        <Form action="/search">
-          <label> {"Search"->Preact.string} </label>
-          <input name="query" class="text-black" value={query} />
-        </Form>
-        {switch movies->Array.length {
-        | 0 => <p class="text-center text-sm"> {Preact.string("No matches found.")} </p>
+    | Some({movies, moviesToWatch, query}) =>
+      <>
+        <form action="/search" method="post" class="w-full m-auto">
+          <label class="block"> {"Search"->Preact.string} </label>
+          <input name="query" class="text-black rounded-lg p-2" value={query} />
+        </form>
+        {switch (movies->Array.length, query) {
+        | (_, "") => Preact.null
+        | (0, _) => <p class="text-center text-sm"> {Preact.string("No matches found.")} </p>
         | _ =>
           <>
-            <p class="text-center text-sm">
-              {Preact.string(`Number of results: ${movies->Array.length->Int.toString}`)}
-            </p>
-            <Movies movies wantToWatch=moviesToWatch heading="Search results" />
+            <Movies
+              movies
+              wantToWatch=moviesToWatch
+              heading={`Number of results: ${movies->Array.length->Int.toString}`}
+              redirect={`/search?query=${query}`->encodeURIComponent}
+            />
           </>
         }}
       </>

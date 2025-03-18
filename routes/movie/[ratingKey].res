@@ -28,7 +28,15 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     }
   },
   post: async (req, ctx) => {
-    let home = Utils.getRootUrl(req.url)
+    let rootUrl = Utils.getRootUrl(req.url)
+    let path =
+      ctx.url.search
+      ->String.split("=")
+      ->Array.at(1)
+      ->Option.map(decodeURIComponent)
+      ->Option.getOr("/")
+
+    let redirect = rootUrl ++ path
 
     let ratingKey = ctx.params->Dict.get("ratingKey")
     let data = await req->Request.formData
@@ -37,8 +45,8 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     | (Some(fn), _) => fn()
     | (None, Some(ratingKey)) =>
       await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
-      Response.redirect(~url=home)
-    | _ => Response.redirect(~url=home)
+      Response.redirect(~url=redirect)
+    | _ => Response.redirect(~url=redirect)
     }
   },
 }

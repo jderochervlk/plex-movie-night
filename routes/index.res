@@ -24,7 +24,9 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
-    <Movies movies=data.recentlyAdded wantToWatch=data.moviesToWatch heading="Recently Added" />
+    <Movies
+      movies=data.recentlyAdded wantToWatch=data.moviesToWatch heading="Recently Added" redirect="/"
+    />
 
   | None =>
     <div className="w-full text-xl p-5 text-center">
