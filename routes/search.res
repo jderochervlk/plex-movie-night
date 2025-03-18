@@ -75,7 +75,7 @@ let make = (~data: option<data>) => {
             />
             <button
               type_="submit"
-              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-50 bg-blue-900 rounded-e-lg border border-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600  ">
+              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-50 bg-blue-900 rounded-e-md border border-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600  ">
               <img src="/search.svg" class="h-7" />
             </button>
           </div>
