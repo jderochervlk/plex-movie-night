@@ -1,20 +1,11 @@
 type data = {users: array<Db__edgeql.SelectAllUsers.response>, votes: Dict.t<int>}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
-  get: async (req, ctx) => {
-    switch await Utils.authCheck(req) {
-    | Some(fn) => fn()
-    | None => {
-        let users = await User.getAllUsers()
-        ctx.render(
-          ~data={users, votes: Dict.make()},
-          //   switch await Plex.Api.getRecent() {
-          //   | None => None
-          //   },
-        )
-      }
-    }
-  },
+  get: async (req, ctx) =>
+    await Utils.authCheck(req, async () => {
+      let users = await User.getAllUsers()
+      ctx.render(~data={users, votes: Dict.make()})
+    }),
 }
 
 @jsx.component

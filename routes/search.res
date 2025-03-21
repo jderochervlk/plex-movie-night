@@ -1,50 +1,43 @@
+open WebAPI
+
 type data = {movies: array<Plex.Movie.t>, moviesToWatch: array<string>, query: string}
 
 let handler: Fresh.Handler.t<unknown, data, unknown> = {
-  get: async (req, ctx) => {
-    switch await Utils.authCheck(req) {
-    | Some(fn) => fn()
-    | None => {
-        let user = User.getCurrentUser(req)
-        let moviesToWatch =
-          await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
+  get: async (req, ctx) =>
+    await Utils.authCheck(req, async () => {
+      let user = User.getCurrentUser(req)
+      let moviesToWatch =
+        await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
-        let query =
-          ctx.url.search
-          ->String.split("=")
-          ->Array.at(1)
-          ->Option.map(decodeURIComponent)
-          ->Option.getOr("")
+      let query =
+        ctx.url.search
+        ->String.split("=")
+        ->Array.at(1)
+        ->Option.map(decodeURIComponent)
+        ->Option.getOr("")
 
-        let data = switch await Plex.Api.search(query) {
-        | Some(movies) => {movies, moviesToWatch, query}
-        | None => {movies: [], moviesToWatch, query}
-        }
-        ctx.render(~data)
+      let data = switch await Plex.Api.search(query) {
+      | Some(movies) => {movies, moviesToWatch, query}
+      | None => {movies: [], moviesToWatch, query}
       }
-    }
-  },
-  post: async (req, ctx) => {
-    open WebAPI
-    switch await Utils.authCheck(req) {
-    | Some(fn) => fn()
-    | None => {
-        let user = User.getCurrentUser(req)
-        let moviesToWatch =
-          await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
+      ctx.render(~data)
+    }),
+  post: async (req, ctx) =>
+    await Utils.authCheck(req, async () => {
+      let user = User.getCurrentUser(req)
+      let moviesToWatch =
+        await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
-        let form = await req->Request.formData
-        let query = form->FormData.get2("query")
+      let form = await req->Request.formData
+      let query = form->FormData.get2("query")
 
-        let data = switch await Plex.Api.search(query) {
-        | Some(movies) => {movies, moviesToWatch, query}
-        | None => {movies: [], moviesToWatch, query}
-        }
-
-        ctx.render(~data)
+      let data = switch await Plex.Api.search(query) {
+      | Some(movies) => {movies, moviesToWatch, query}
+      | None => {movies: [], moviesToWatch, query}
       }
-    }
-  },
+
+      ctx.render(~data)
+    }),
 }
 
 @jsx.component

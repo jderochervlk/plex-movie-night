@@ -1,28 +1,23 @@
-open WebAPI
-
 type data = {recentlyAdded: array<Plex.Movie.t>, moviesToWatch: array<string>}
 
 let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
-  get: async (req, ctx) => {
-    switch await Utils.authCheck(req) {
-    | Some(fn) => fn()
-    | None => {
-        let user = User.getCurrentUser(req)
-        let moviesToWatch =
-          await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
-        let response = ctx.render(
-          ~data=switch await Plex.Api.getRecent() {
-          | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch})
-          | None => None
-          },
-        )
+  get: async (req, ctx) =>
+    await Utils.authCheck(req, async () => {
+      let user = User.getCurrentUser(req)
+      let moviesToWatch =
+        await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
-        response.headers->Headers.set(~name="x-foo", ~value="bar")
-
-        response
-      }
-    }
-  },
+      ctx.render(
+        ~data=switch await Plex.Api.getRecent() {
+        | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch})
+        | None => None
+        | exception e => {
+            Console.error(e)
+            None
+          }
+        },
+      )
+    }),
 }
 
 @jsx.component

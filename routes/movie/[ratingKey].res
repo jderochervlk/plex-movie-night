@@ -16,39 +16,43 @@ module Data = {
 
 let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
   get: async (req, ctx) => {
-    let ratingKey = ctx.params->Dict.get("ratingKey")
-    switch (await Utils.authCheck(req), ratingKey) {
-    | (Some(fn), _) => fn()
-    | (None, Some(ratingKey)) => {
-        let wantToWatch = await User.doesUserWantToWatch(~name=User.getCurrentUser(req), ~ratingKey)
-        let data = await Data.make(ratingKey, wantToWatch)
-        ctx.render(~data)
+    await Utils.authCheck(req, async () => {
+      let ratingKey = ctx.params->Dict.get("ratingKey")
+      switch ratingKey {
+      | Some(ratingKey) => {
+          let wantToWatch = await User.doesUserWantToWatch(
+            ~name=User.getCurrentUser(req),
+            ~ratingKey,
+          )
+          let data = await Data.make(ratingKey, wantToWatch)
+          ctx.render(~data)
+        }
+      | None => Response.redirect(~url=Utils.getRootUrl(req.url))
       }
-    | _ => Response.redirect(~url=Utils.getRootUrl(req.url))
-    }
+    })
   },
-  post: async (req, ctx) => {
-    let rootUrl = Utils.getRootUrl(req.url)
-    let path =
-      ctx.url.search
-      ->String.split("=")
-      ->Array.at(1)
-      ->Option.map(decodeURIComponent)
-      ->Option.getOr("/")
+  post: async (req, ctx) =>
+    await Utils.authCheck(req, async () => {
+      let rootUrl = Utils.getRootUrl(req.url)
+      let path =
+        ctx.url.search
+        ->String.split("=")
+        ->Array.at(1)
+        ->Option.map(decodeURIComponent)
+        ->Option.getOr("/")
 
-    let redirect = rootUrl ++ path
-
-    let ratingKey = ctx.params->Dict.get("ratingKey")
-    let data = await req->Request.formData
-    let wantToWatch = data->FormData.get2("wantToWatch")
-    switch (await Utils.authCheck(req), ratingKey) {
-    | (Some(fn), _) => fn()
-    | (None, Some(ratingKey)) =>
-      await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
-      Response.redirect(~url=redirect)
-    | _ => Response.redirect(~url=redirect)
-    }
-  },
+      let redirect = rootUrl ++ path
+      let ratingKey = ctx.params->Dict.get("ratingKey")
+      let data = await req->Request.formData
+      let wantToWatch = data->FormData.get2("wantToWatch")
+      switch ratingKey {
+      | Some(ratingKey) => {
+          await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
+          Response.redirect(~url=redirect)
+        }
+      | _ => Response.redirect(~url=redirect)
+      }
+    }),
 }
 
 @jsx.component
