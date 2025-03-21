@@ -11,17 +11,13 @@ let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
         ~data=switch await Plex.Api.getRecent() {
         | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch})
         | None => None
-        | exception e => {
-            Console.error(e)
-            None
-          }
         },
       )
     }),
 }
 
 @jsx.component
-let make = (~data: option<data>) =>
+let make = (~data: option<data>) => {
   switch data {
   | Some(data) =>
     <Movies
@@ -33,5 +29,6 @@ let make = (~data: option<data>) =>
       {Preact.string("Something went wrong connecting to Plex.")}
     </div>
   }
+}
 
 let default = make
