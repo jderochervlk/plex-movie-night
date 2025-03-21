@@ -1,7 +1,7 @@
 open WebAPI
 type data = {isAllowed: bool}
 
-let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
+let handler = Fresh.Handler.make({
   post: async (req, _ctx) => {
     if await Utils.doesPasswordMatch(req) {
       let headers = Headers.make()
@@ -23,4 +23,4 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
       Response.make2(~init={status: 403})
     }
   },
-}
+})

@@ -1,6 +1,6 @@
 open WebAPI
 
-let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
+let handler = Fresh.Handler.make({
   post: async (req: FetchAPI.request, _ctx) => {
     let data = await req->Request.formData
     let name = data->FormData.get2("name")
@@ -25,4 +25,4 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
     | false => Response.make2(~init={status: 403})
     }
   },
-}
+})

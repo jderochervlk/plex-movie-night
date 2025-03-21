@@ -14,7 +14,7 @@ module Data = {
   }
 }
 
-let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
+let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     await Utils.authCheck(req, async () => {
       let ratingKey = ctx.params->Dict.get("ratingKey")
@@ -53,7 +53,7 @@ let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
       | _ => Response.redirect(~url=redirect)
       }
     }),
-}
+})
 
 @jsx.component
 let make = (~data: option<data>) => {

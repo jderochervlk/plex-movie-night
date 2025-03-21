@@ -1,6 +1,6 @@
 open WebAPI
 
-let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
+let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     let isAllowed = await Utils.isAuthenticated(req)
     switch isAllowed {
@@ -8,7 +8,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
     | false => ctx.render()
     }
   },
-}
+})
 
 @jsx.component
 let make = () => {

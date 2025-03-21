@@ -2,7 +2,7 @@ open WebAPI
 
 type data = {movies: array<Plex.Movie.t>, moviesToWatch: array<string>, query: string}
 
-let handler: Fresh.Handler.t<unknown, data, unknown> = {
+let handler = Fresh.Handler.make({
   get: async (req, ctx) =>
     await Utils.authCheck(req, async () => {
       let user = User.getCurrentUser(req)
@@ -38,7 +38,7 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
 
       ctx.render(~data)
     }),
-}
+})
 
 @jsx.component
 let make = (~data: option<data>) => {

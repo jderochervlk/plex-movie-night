@@ -1,12 +1,12 @@
 type data = {users: array<Db__edgeql.SelectAllUsers.response>, votes: Dict.t<int>}
 
-let handler: Fresh.Handler.t<unknown, data, unknown> = {
+let handler = Fresh.Handler.make({
   get: async (req, ctx) =>
     await Utils.authCheck(req, async () => {
       let users = await User.getAllUsers()
       ctx.render(~data={users, votes: Dict.make()})
     }),
-}
+})
 
 @jsx.component
 let make = (~data: data) =>

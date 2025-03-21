@@ -43,42 +43,43 @@ module ResolvedConfig = {
 
 module Context = {
   type renderOptions = FetchAPI.responseInit
-  type t<'state, 'data, 'notFoundData> = {
+  type t<'a> = {
     url: URL.t,
     basePath: string,
     route: string,
     destination: Router.destinationKind,
     params: Dict.t<string>,
     isPartial: bool,
-    state: Dict.t<'state>,
-    data: 'data,
+    state: Dict.t<unknown>,
+    data: unknown,
     error?: unknown,
     codeFrame?: unknown,
-    renderNotFound: option<'notFoundData> => promise<FetchAPI.response>,
-    render: (~data: 'data=?, ~options: renderOptions=?) => FetchAPI.response,
+    renderNotFound: option<unknown> => promise<FetchAPI.response>,
+    render: (~data: 'a=?, ~options: renderOptions=?) => FetchAPI.response,
     @as("Component") component: Preact.component<unknown>,
     next: unit => promise<FetchAPI.response>,
   }
 }
 
 module Handler = {
-  type t<'state, 'data, 'notFoundData> = {
+  type route<'a> = (FetchAPI.request, Context.t<'a>) => promise<FetchAPI.response>
+
+  type t<'a> = {
     @as("GET")
-    get?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => promise<FetchAPI.response>,
+    get?: route<'a>,
     @as("HEAD")
-    head?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => FetchAPI.response,
+    head?: route<'a>,
     @as("POST")
-    post?: (
-      FetchAPI.request,
-      Context.t<'state, 'data, 'notFoundData>,
-    ) => promise<FetchAPI.response>,
+    post?: route<'a>,
     @as("PUT")
-    put?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => FetchAPI.response,
+    put?: route<'a>,
     @as("DELETE")
-    delete?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => FetchAPI.response,
+    delete?: route<'a>,
     @as("OPTIONS")
-    options?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => FetchAPI.response,
+    options?: route<'a>,
     @as("PATCH")
-    patch?: (FetchAPI.request, Context.t<'state, 'data, 'notFoundData>) => FetchAPI.response,
+    patch?: route<'a>,
   }
+
+  external make: t<'t> => t<'t> = "%identity"
 }

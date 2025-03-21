@@ -1,6 +1,6 @@
 type data = {recentlyAdded: array<Plex.Movie.t>, moviesToWatch: array<string>}
 
-let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
+let handler = Fresh.Handler.make({
   get: async (req, ctx) =>
     await Utils.authCheck(req, async () => {
       let user = User.getCurrentUser(req)
@@ -14,7 +14,7 @@ let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
         },
       )
     }),
-}
+})
 
 @jsx.component
 let make = (~data: option<data>) => {
