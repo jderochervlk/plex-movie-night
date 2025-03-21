@@ -40,3 +40,4 @@
     "ppx-flags": ["rescript-embed-lang/ppx"],
     "external-stdlib" : "@rescript/std"
 }
+

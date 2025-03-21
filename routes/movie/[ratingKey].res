@@ -14,7 +14,7 @@ module Data = {
   }
 }
 
-let handler: Fresh.Handler.t<unknown, data, unknown> = {
+let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
   get: async (req, ctx) => {
     let ratingKey = ctx.params->Dict.get("ratingKey")
     switch (await Utils.authCheck(req), ratingKey) {
@@ -22,7 +22,7 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
     | (None, Some(ratingKey)) => {
         let wantToWatch = await User.doesUserWantToWatch(~name=User.getCurrentUser(req), ~ratingKey)
         let data = await Data.make(ratingKey, wantToWatch)
-        ctx.render(data, None)
+        ctx.render(~data)
       }
     | _ => Response.redirect(~url=Utils.getRootUrl(req.url))
     }

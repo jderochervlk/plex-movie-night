@@ -17,10 +17,10 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
           ->Option.getOr("")
 
         let data = switch await Plex.Api.search(query) {
-        | Some(movies) => Some({movies, moviesToWatch, query})
-        | None => Some({movies: [], moviesToWatch, query})
+        | Some(movies) => {movies, moviesToWatch, query}
+        | None => {movies: [], moviesToWatch, query}
         }
-        ctx.render(data, None)
+        ctx.render(~data)
       }
     }
   },
@@ -36,14 +36,12 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
         let form = await req->Request.formData
         let query = form->FormData.get2("query")
 
-        // Console.log(form)
-
         let data = switch await Plex.Api.search(query) {
-        | Some(movies) => Some({movies, moviesToWatch, query})
-        | None => Some({movies: [], moviesToWatch, query})
+        | Some(movies) => {movies, moviesToWatch, query}
+        | None => {movies: [], moviesToWatch, query}
         }
 
-        ctx.render(data, None)
+        ctx.render(~data)
       }
     }
   },

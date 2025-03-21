@@ -55,7 +55,7 @@ module Context = {
     error?: unknown,
     codeFrame?: unknown,
     renderNotFound: option<'notFoundData> => promise<FetchAPI.response>,
-    render: (option<'data>, option<renderOptions>) => FetchAPI.response,
+    render: (~data: 'data=?, ~options: renderOptions=?) => FetchAPI.response,
     @as("Component") component: Preact.component<unknown>,
     next: unit => promise<FetchAPI.response>,
   }

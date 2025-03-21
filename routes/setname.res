@@ -5,7 +5,7 @@ let handler: Fresh.Handler.t<unknown, unknown, unknown> = {
     let hasName = await Utils.hasNameSet(req)
     switch hasName {
     | true => Response.redirect(~url="/")
-    | false => ctx.render(None, None)
+    | false => ctx.render()
     }
   },
 }

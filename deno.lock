@@ -16,6 +16,7 @@
     "npm:edgedb@1.3.6": "1.3.6",
     "npm:postcss@8.4.35": "8.4.35",
     "npm:rescript-edgedb@*": "0.7.0_@rescript+core@1.6.1__rescript@11.1.4_edgedb@1.3.6_rescript@11.1.4_rescript-embed-lang@0.5.5",
+    "npm:rescript-edgedb@0.7.0": "0.7.0_@rescript+core@1.6.1__rescript@11.1.4_edgedb@1.3.6_rescript@11.1.4_rescript-embed-lang@0.5.5",
     "npm:rescript-embed-lang@*": "0.5.5",
     "npm:rescript@12.0.0-alpha.7": "12.0.0-alpha.7",
     "npm:tailwindcss@3.4.1": "3.4.1_postcss@8.5.3"

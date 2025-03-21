@@ -11,6 +11,14 @@ let selectUser = %edgeql(`
     filter .name = <str>$name
 `)
 
+let selectAllUsers = %edgeql(`
+    # @name selectAllUsers
+    select default::User {
+        movies,
+        name
+    }
+`)
+
 let insertUser = %edgeql(`
     # @name insertUser
     insert User {

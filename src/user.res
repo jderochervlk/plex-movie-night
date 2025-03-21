@@ -1,5 +1,10 @@
 open WebAPI
 
+type t = {
+  name: string,
+  movies: array<string>,
+}
+
 let getMovies = async (~name) => {
   let client = Db.client
   switch await client->Db.selectUser({name: name}) {
@@ -63,3 +68,17 @@ let createAllUsers = async () => {
     }
   }
 }
+
+let getAllUsers = async () => await Db.client->Db.selectAllUsers
+
+// let countVotes = (users: Db__edgeql.SelectAllUsers.response) => {
+//   let votes = Dict.make()
+
+//   let _ = users->Array.forEach(user => {
+//     let _ =
+//       user.movies
+//       ->Null.toOption
+//       ->Option.getOr([])
+//       ->Array.forEach(movies => ())
+//   })
+// }

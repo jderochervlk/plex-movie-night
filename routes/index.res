@@ -1,6 +1,8 @@
+open WebAPI
+
 type data = {recentlyAdded: array<Plex.Movie.t>, moviesToWatch: array<string>}
 
-let handler: Fresh.Handler.t<unknown, data, unknown> = {
+let handler: Fresh.Handler.t<unknown, option<data>, unknown> = {
   get: async (req, ctx) => {
     switch await Utils.authCheck(req) {
     | Some(fn) => fn()
@@ -8,13 +10,16 @@ let handler: Fresh.Handler.t<unknown, data, unknown> = {
         let user = User.getCurrentUser(req)
         let moviesToWatch =
           await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
-        ctx.render(
-          switch await Plex.Api.getRecent() {
+        let response = ctx.render(
+          ~data=switch await Plex.Api.getRecent() {
           | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch})
           | None => None
           },
-          None,
         )
+
+        response.headers->Headers.set(~name="x-foo", ~value="bar")
+
+        response
       }
     }
   },
