@@ -41,16 +41,20 @@ let handler = Fresh.Handler.make({
         ->Option.map(decodeURIComponent)
         ->Option.getOr("/")
 
-      let redirect = rootUrl ++ path
-      let ratingKey = ctx.params->Dict.get("ratingKey")
-      let data = await req->Request.formData
-      let wantToWatch = data->FormData.get2("wantToWatch")
-      switch ratingKey {
+      let redirect = Response.redirect(~url=rootUrl ++ path)
+
+      switch ctx.params->Dict.get("ratingKey") {
       | Some(ratingKey) => {
-          await User.toggleMovie(~name=User.getCurrentUser(req), ~ratingKey, ~wantToWatch)
-          Response.redirect(~url=redirect)
+          await User.toggleMovie(
+            ~name=User.getCurrentUser(req),
+            ~ratingKey,
+            ~wantToWatch=await req
+            ->Request.formData
+            ->Promise.thenResolve(FormData.get2(_, "wantToWatch")),
+          )
+          redirect
         }
-      | _ => Response.redirect(~url=redirect)
+      | _ => redirect
       }
     }),
 })
