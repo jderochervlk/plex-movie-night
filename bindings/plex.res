@@ -36,6 +36,7 @@ module MediaContainer = {
 }
 
 module Movie = {
+  @deriving(accessors)
   type t = {
     title: string,
     thumb: string,
@@ -51,6 +52,8 @@ module Movie = {
     ratingImage: string,
   }
   external parse: array<MediaContainer.media> => array<t> = "%identity"
+
+  let _ = (m: t) => m->title
 }
 
 module Api = {
@@ -93,15 +96,13 @@ module Api = {
     )->parsePlexResponse
   }
 
-  let getMovie = async ratingKey => {
-    let movies =
-      await fetch(
-        createUrl(`/library/metadata/${ratingKey}`, ~otherParams=false),
-        ~init={headers: headers->HeadersInit.fromHeaders},
-      )->parsePlexResponse
-
-    movies->Option.flatMap(movies => movies[0])
-  }
+  let getMovie = async ratingKey =>
+    await fetch(
+      createUrl(`/library/metadata/${ratingKey}`, ~otherParams=false),
+      ~init={headers: headers->HeadersInit.fromHeaders},
+    )
+    ->parsePlexResponse
+    ->Promise.thenResolve(Option.flatMap(_, Array.at(_, 0)))
 
   let getId = (directory: array<MediaContainer.library>) =>
     directory
@@ -125,9 +126,7 @@ module Api = {
     ->Promise.thenResolve(res => res->JSON.stringify)
     ->Promise.thenResolve(t =>
       Some(MediaContainer.parse(t))
-      ->Option.flatMap(x => {
-        x.mediaContainer
-      })
+      ->Option.flatMap(x => x.mediaContainer)
       ->Option.flatMap(mediaContainer => mediaContainer.directory->getId)
     )
     ->Promise.catch(err => {
