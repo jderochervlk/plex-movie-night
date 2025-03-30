@@ -11,7 +11,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
       <p class="item-body px-2"> {Preact.string(summary)} </p>
     </div>
     // <Fresh.Partial name={`${ratingKey->Int.toString}-form`}>
-    <form method="post" class="w-fill mt-6">
+    <form method="post" class="w-fill mt-6" fClientNav=false>
       <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
       <input
         name="wantToWatch"

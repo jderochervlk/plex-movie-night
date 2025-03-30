@@ -12,13 +12,13 @@ export default function ({ Component }: PageProps) {
         <title>Movie Night</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body class="bg-slate-800 text-slate-50">
+      <body class="bg-slate-800 text-slate-50" f-client-nav>
         <Partial name="body">
           <Header />
           <main class="max-width=[1700px] m-auto p-4 text-lg ">
-            {/* <Partial name="main"> */}
-            <Component />
-            {/* </Partial> */}
+            <Partial name="main">
+              <Component />
+            </Partial>
           </main>
         </Partial>
       </body>
