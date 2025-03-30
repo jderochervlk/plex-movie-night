@@ -164,6 +164,36 @@ module Api = {
       }
     }
 
+  let getNewest = async () =>
+    switch await getMovieLibraryId() {
+    | Some(id) =>
+      await fetch(
+        createUrl(`/library/sections/${id}/newest`, ~otherParams=false),
+        ~init={headers: headers->HeadersInit.fromHeaders},
+      )
+      ->Promise.then(Response.json)
+      ->Promise.thenResolve(res => res->JSON.stringify)
+      ->Promise.thenResolve(t =>
+        MediaContainer.parse(t).mediaContainer
+        ->Option.flatMap(mediaContainer =>
+          mediaContainer.hub->Array.find(hub => hub.\"type" == "movie")
+        )
+        ->Option.flatMap(x => {
+          x.metadata
+        })
+        ->Option.map(onlyMovies)
+      )
+      ->Promise.catch(err => {
+        Console.error(err)
+        Promise.resolve(None)
+      })
+
+    | None => {
+        Console.error("No valid movie library was found")
+        None
+      }
+    }
+
   let getThumb = url =>
     createUrl(
       `/photo/:/transcode?width=${Int.toString(248 * 2)}&height=${Int.toString(
