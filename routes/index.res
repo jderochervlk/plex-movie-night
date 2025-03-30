@@ -11,9 +11,15 @@ let handler = Fresh.Handler.make({
       let moviesToWatch =
         await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
-      let newest = await Plex.Api.getNewest()->Promise.thenResolve(Option.getOr(_, []))
+      let (newest, recentlyAdded) = switch await Promise.all([
+        Plex.Api.getNewest()->Promise.thenResolve(Option.getOr(_, [])),
+        Plex.Api.getRecent()->Promise.thenResolve(Option.getOr(_, [])),
+      ]) {
+      | [newest, recentlyAdded] => (newest, recentlyAdded)
+      | _ => ([], [])
+      }
 
-      ctx.render(~data=Some({recentlyAdded: [], moviesToWatch, newest}))
+      ctx.render(~data=Some({recentlyAdded, moviesToWatch, newest}))
     }),
 })
 

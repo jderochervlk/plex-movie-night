@@ -166,7 +166,7 @@ module Api = {
 
   let getNewest = async () =>
     await fetch(
-      createUrl(`/library/sections/1/newest`, ~otherParams=false),
+      createUrl(`/library/sections/1/newest?limit=10`, ~otherParams=true),
       ~init={headers: headers->HeadersInit.fromHeaders},
     )
     ->Promise.then(Response.json)
