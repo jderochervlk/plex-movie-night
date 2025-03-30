@@ -29,13 +29,13 @@ let make = (~data: option<data>) => {
   | Some(data) =>
     <>
       <Movies
+        movies=data.newest wantToWatch=data.moviesToWatch heading="Recently Released" redirect="/"
+      />
+      <Movies
         movies=data.recentlyAdded
         wantToWatch=data.moviesToWatch
         heading="Recently Added"
         redirect="/"
-      />
-      <Movies
-        movies=data.newest wantToWatch=data.moviesToWatch heading="Recently Released" redirect="/"
       />
     </>
   | None =>
