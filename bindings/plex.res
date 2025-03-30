@@ -123,7 +123,7 @@ module Api = {
   let getMovieLibraryId = async () =>
     await fetch(createUrl(`/library/sections/`), ~init={headers: headers->HeadersInit.fromHeaders})
     ->Promise.then(Response.json)
-    ->Promise.thenResolve(res => res->JSON.stringify)
+    ->Promise.thenResolve(JSON.stringify(_))
     ->Promise.thenResolve(t =>
       Some(MediaContainer.parse(t))
       ->Option.flatMap(x => x.mediaContainer)
@@ -142,7 +142,7 @@ module Api = {
         ~init={headers: headers->HeadersInit.fromHeaders},
       )
       ->Promise.then(Response.json)
-      ->Promise.thenResolve(res => res->JSON.stringify)
+      ->Promise.thenResolve(JSON.stringify(_))
       ->Promise.thenResolve(t =>
         MediaContainer.parse(t).mediaContainer
         ->Option.flatMap(mediaContainer =>
@@ -163,6 +163,25 @@ module Api = {
         None
       }
     }
+
+  let getNewest = async () =>
+    await fetch(
+      createUrl(`/library/sections/1/newest`, ~otherParams=false),
+      ~init={headers: headers->HeadersInit.fromHeaders},
+    )
+    ->Promise.then(Response.json)
+    ->Promise.thenResolve(JSON.stringify(_))
+    ->Promise.thenResolve(t =>
+      MediaContainer.parse(t).mediaContainer
+      ->Option.flatMap(x => {
+        x.metadata
+      })
+      ->Option.map(onlyMovies)
+    )
+    ->Promise.catch(err => {
+      Console.error(err)
+      Promise.resolve(None)
+    })
 
   let getThumb = url =>
     createUrl(
