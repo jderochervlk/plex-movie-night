@@ -10,7 +10,7 @@ let handler = Fresh.Handler.make({
         ->fetch
         ->Promise.then(Response.arrayBuffer)
 
-      let headers = Headers.make(~init=[["Cache-control", "public, max-age=9999999999"]])
+      let headers = Headers.make(~init=[["Expires", Utils.sixMonthsFromNow()->Date.toDateString], ["Cache-Control", "public"])
 
       Response.make4(~body=image, ~init={status: 200, headers: HeadersInit.fromHeaders(headers)})
     }),
