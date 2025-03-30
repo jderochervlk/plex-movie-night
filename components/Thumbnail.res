@@ -5,7 +5,7 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
       loading={index > 5 ? #lazy : #eager}
       title
       alt=title
-      src={Plex.Api.getThumb(thumb)}
+      src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
       class="object-cover rounded-md w-full h-full"
     />
     {wantToWatch

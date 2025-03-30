@@ -61,6 +61,3 @@ let getRootUrl = (url: string) => {
   ->Option.map(url => prefix ++ url)
   ->Option.getOr("/")
 }
-
-@scope("Object")
-external fromEntries: Map.t<'a, 'b> => Dict.t<'b> = "fromEntries"
