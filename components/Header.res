@@ -6,6 +6,9 @@ let make = () =>
         <img src="/film.svg" class="h-7 mr-2" />
         <H1 class="text-xl font-bold"> "Movie Night" </H1>
       </a>
+      <a class="h-5 hover:text-blue-200 mr-2" href="/watch" title="watch">
+        {"watch"->Preact.string}
+      </a>
       <a class="h-5 hover:text-blue-200 mr-2" href="/search" title="search">
         {"search"->Preact.string}
       </a>

@@ -59,7 +59,6 @@ let handler = Fresh.Handler.make({
 @jsx.component
 let make = (~data: data) =>
   <section>
-    <P> "Watch now!" </P>
     <Movies
       movies={data.movies}
       redirect="/watch"
