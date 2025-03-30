@@ -16,7 +16,14 @@
     "res:clean": "rescript clean",
     "build:edgedb": "rescript-edgedb generate --output ./src/__generated__ --src ./src -I jderochervlk/mydb"
   },
-  "lint": { "rules": { "tags": ["fresh", "recommended"] } },
+  "lint": {
+    "rules": {
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
+    }
+  },
   "imports": {
     "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.6.0",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
@@ -36,7 +43,10 @@
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
   },
-  "compilerOptions": { "jsx": "react-jsx", "jsxImportSource": "preact" },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact"
+  },
   "nodeModulesDir": "auto",
   "deploy": {
     "project": "88392f6c-905b-4d2d-9bf8-2f0ced554bfd",
