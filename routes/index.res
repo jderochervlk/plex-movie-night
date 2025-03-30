@@ -13,12 +13,7 @@ let handler = Fresh.Handler.make({
 
       let newest = await Plex.Api.getNewest()->Promise.thenResolve(Option.getOr(_, []))
 
-      ctx.render(
-        ~data=switch await Plex.Api.getRecent() {
-        | Some(recentlyAdded) => Some({recentlyAdded, moviesToWatch, newest})
-        | None => None
-        },
-      )
+      ctx.render(~data=Some({recentlyAdded: [], moviesToWatch, newest}))
     }),
 })
 
