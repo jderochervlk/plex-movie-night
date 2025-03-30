@@ -16,7 +16,9 @@ export default function ({ Component }: PageProps) {
         <Partial name="body">
           <Header />
           <main class="max-width=[1700px] m-auto p-4 text-lg ">
-            <Component />
+            <Partial name="main">
+              <Component />
+            </Partial>
           </main>
         </Partial>
       </body>
