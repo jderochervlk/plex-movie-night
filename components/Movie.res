@@ -10,21 +10,21 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
       // Critic scores?
       <p class="item-body px-2"> {Preact.string(summary)} </p>
     </div>
-    <Fresh.Partial name="watch-form">
-      <form method="post" class="w-fill mt-6">
-        <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
-        <input
-          name="wantToWatch"
-          type_="hidden" /* we want to invert the value on button press */
-          value={wantToWatch === "true" ? "false" : "true"}
-        />
-        <button
-          class={`rounded-lg p-4 ${wantToWatch === "true" ? "bg-red-900" : "bg-blue-900"}`}
-          type_="submit">
-          {Preact.string(wantToWatch === "true" ? "Remove from watchlist" : "Add to watchlist")}
-        </button>
-      </form>
-    </Fresh.Partial>
+    // <Fresh.Partial name={`${ratingKey->Int.toString}-form`}>
+    <form method="post" class="w-fill mt-6">
+      <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
+      <input
+        name="wantToWatch"
+        type_="hidden" /* we want to invert the value on button press */
+        value={wantToWatch === "true" ? "false" : "true"}
+      />
+      <button
+        class={`rounded-lg p-4 ${wantToWatch === "true" ? "bg-red-900" : "bg-blue-900"}`}
+        type_="submit">
+        {Preact.string(wantToWatch === "true" ? "Remove from watchlist" : "Add to watchlist")}
+      </button>
+    </form>
+    // </Fresh.Partial>
   </section>
   // Cast circles
   // crew details
