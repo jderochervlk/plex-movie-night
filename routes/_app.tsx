@@ -1,5 +1,7 @@
+import { Partial } from "$fresh/runtime.ts";
 import { PageProps } from "$fresh/server.ts";
 import { make as Header } from "../components/Header.mjs";
+
 export default function ({ Component }: PageProps) {
   return (
     <html lang="en">
@@ -10,11 +12,13 @@ export default function ({ Component }: PageProps) {
         <title>Movie Night</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body class="bg-slate-800 text-slate-50">
-        <Header />
-        <main class="max-width=[1700px] m-auto p-4 text-lg ">
-          <Component />
-        </main>
+      <body class="bg-slate-800 text-slate-50" f-client-nav>
+        <Partial name="body">
+          <Header />
+          <main class="max-width=[1700px] m-auto p-4 text-lg ">
+            <Component />
+          </main>
+        </Partial>
       </body>
     </html>
   );
