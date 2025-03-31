@@ -164,11 +164,8 @@ module Api = {
       }
     }
 
-  let getNewest = async () =>
-    await fetch(
-      createUrl(`/library/sections/1/newest`, ~otherParams=false),
-      ~init={headers: headers->HeadersInit.fromHeaders},
-    )
+  let parseMoviesResponse = async res =>
+    await res
     ->Promise.then(Response.json)
     ->Promise.thenResolve(JSON.stringify(_))
     ->Promise.thenResolve(t =>
@@ -182,6 +179,21 @@ module Api = {
       Console.error(err)
       Promise.resolve(None)
     })
+
+  let getNewest = async () =>
+    await fetch(
+      createUrl(`/library/sections/1/newest`, ~otherParams=false),
+      ~init={headers: headers->HeadersInit.fromHeaders},
+    )->parseMoviesResponse
+
+  let getByDecade = async (decade, ~audienceRating=9.0) =>
+    await fetch(
+      createUrl(
+        `/library/sections/1/decade/${decade}?audienceRating>=${audienceRating->Float.toString}`,
+        ~otherParams=true,
+      ),
+      ~init={headers: headers->HeadersInit.fromHeaders},
+    )->parseMoviesResponse
 
   let getThumb = url =>
     createUrl(

@@ -2,6 +2,7 @@ type data = {
   recentlyAdded: array<Plex.Movie.t>,
   newest: array<Plex.Movie.t>,
   moviesToWatch: array<string>,
+  eighties: array<Plex.Movie.t>,
 }
 
 let handler = Fresh.Handler.make({
@@ -11,15 +12,16 @@ let handler = Fresh.Handler.make({
       let moviesToWatch =
         await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
-      let (newest, recentlyAdded) = switch await Promise.all([
+      let (newest, recentlyAdded, eighties) = switch await Promise.all([
         Plex.Api.getNewest()->Promise.thenResolve(Option.getOr(_, [])),
         Plex.Api.getRecent()->Promise.thenResolve(Option.getOr(_, [])),
+        Plex.Api.getByDecade("1980")->Promise.thenResolve(Option.getOr(_, [])),
       ]) {
-      | [newest, recentlyAdded] => (newest, recentlyAdded)
-      | _ => ([], [])
+      | [newest, recentlyAdded, eighties] => (newest, recentlyAdded, eighties)
+      | _ => ([], [], [])
       }
 
-      ctx.render(~data=Some({recentlyAdded, moviesToWatch, newest}))
+      ctx.render(~data=Some({recentlyAdded, moviesToWatch, newest, eighties}))
     }),
 })
 
@@ -37,6 +39,7 @@ let make = (~data: option<data>) => {
         heading="Recently Added"
         redirect="/"
       />
+      <Movies movies=data.eighties wantToWatch=data.moviesToWatch heading="80s" redirect="/" />
     </>
   | None =>
     <div className="w-full text-xl p-5 text-center">

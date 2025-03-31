@@ -10,7 +10,6 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
       // Critic scores?
       <p class="item-body px-2"> {Preact.string(summary)} </p>
     </div>
-    // <Fresh.Partial name={`${ratingKey->Int.toString}-form`}>
     <form method="post" class="w-fill mt-6" fClientNav=false>
       <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
       <input
@@ -24,7 +23,6 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
         {Preact.string(wantToWatch === "true" ? "Remove from watchlist" : "Add to watchlist")}
       </button>
     </form>
-    // </Fresh.Partial>
   </section>
   // Cast circles
   // crew details
