@@ -14,10 +14,10 @@ let make = (
       <h2 class="text-center text-base-content text-2xl"> {heading->Preact.string} </h2>
     </div>
     <div
-      class="not-prose grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-12 items-center">
+      class="grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-12 items-center">
       {movies
       ->Array.mapWithIndex(({title, thumb, ratingKey}, index) =>
-        <div class="h-full min-h-[178px]">
+        <div class="h-full min-h-[178px] not-prose">
           <a
             href={`/movie/${ratingKey->Int.toString}?redirect=${redirect}`}
             title
