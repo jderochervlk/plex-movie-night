@@ -5,7 +5,9 @@ import { make as Layout } from "../components/Layout.mjs";
 
 export default function ({ Component }: PageProps) {
   return (
-    <html lang="en" data-theme="night">
+    // nord is a nice light theme
+    // TODO: add theme switch
+    <html lang="en" data-theme="business">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />

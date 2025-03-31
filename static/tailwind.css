@@ -2,8 +2,10 @@
 @source "../components/*.res";
 @source "../routes/*.res";
 
+@import "tailwindcss/preflight.css" layer(base);
+
 @plugin "@tailwindcss/typography";
 
 @plugin "daisyui" {
-  themes: night;
+  themes: business;
 }

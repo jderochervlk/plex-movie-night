@@ -2,6 +2,17 @@ open WebAPI
 
 let getHostname = _req => %raw(`_req.url.hostname`)
 
+let getRootUrl = (url: string) => {
+  let prefix = url->String.includes("http://") ? "http://" : "https://"
+  url
+  ->String.replace("http://", "")
+  ->String.replace("https://", "")
+  ->String.split("/")
+  ->Array.at(0)
+  ->Option.map(url => prefix ++ url)
+  ->Option.getOr("/")
+}
+
 module FormData = {
   type t
 
@@ -43,21 +54,14 @@ let isAuthenticated = async (req: FetchAPI.request) => {
   }
 }
 
-let authCheck = async (req, fn) => {
+let authCheck = async (req: FetchAPI.request, fn) => {
+  let origin = getRootUrl(req.url)
   switch (await isAuthenticated(req), await hasNameSet(req)) {
   | (true, true) => await fn()
-  | (false, _) => Response.redirect(~url=`${req.url}/signin`)
-  | (true, false) => Response.redirect(~url=`${req.url}/setname`)
+  | (false, _) => Response.redirect(~url=`${origin}/signin`)
+  | (true, false) => Response.redirect(~url=`${origin}/setname`)
   }
 }
 
-let getRootUrl = (url: string) => {
-  let prefix = url->String.includes("http://") ? "http://" : "https://"
-  url
-  ->String.replace("http://", "")
-  ->String.replace("https://", "")
-  ->String.split("/")
-  ->Array.at(0)
-  ->Option.map(url => prefix ++ url)
-  ->Option.getOr("/")
-}
+@send @scope("headers")
+external append: (FetchAPI.response, string, string) => unit = "append"

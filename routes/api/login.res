@@ -20,7 +20,19 @@ let handler = Fresh.Handler.make({
 
       Response.make2(~init={status: 303, headers})
     } else {
-      Response.make2(~init={status: 403})
+      let headers = Headers.make()
+      headers->Headers.set(~name="location", ~value="/")
+      headers->Std.Http.Cookies.set({
+        name: "error",
+        value: "wrong-password",
+        maxAge: 10000,
+        sameSite: "Lax",
+        domain: req->Utils.getHostname,
+        path: "/",
+        secure: true,
+      })
+      let headers = HeadersInit.fromHeaders(headers)
+      Response.make2(~init={status: 302, headers})
     }
   },
 })

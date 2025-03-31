@@ -43,7 +43,9 @@ let make = (~data: option<data>) =>
         heading="Recently Added"
         redirect="/"
       />
-      <Movies movies=data.eighties wantToWatch=data.moviesToWatch heading="80s" redirect="/" />
+      <Movies
+        movies=data.eighties wantToWatch=data.moviesToWatch heading="Best of the 80s" redirect="/"
+      />
     </>
   | None =>
     <div className="w-full text-xl p-5 text-center">

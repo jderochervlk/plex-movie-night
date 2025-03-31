@@ -10,7 +10,7 @@ let make = (
   ~aboveTheFold=false,
 ) => {
   <section class="mx-auto max-w-(--breakpoint-2xl)">
-    <h2 class="text-center text-base-content text-2xl"> {heading->Preact.string} </h2>
+    <h2 class="text-center text-base-content text-2xl my-4"> {heading->Preact.string} </h2>
     <div
       class="grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-12 items-center">
       {movies

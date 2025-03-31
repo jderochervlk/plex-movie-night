@@ -11,7 +11,7 @@ module Http = {
       name: string,
       value: string,
       maxAge?: int,
-      expires: Date.t,
+      expires?: Date.t,
       sameSite: string,
       domain: string,
       path: string,

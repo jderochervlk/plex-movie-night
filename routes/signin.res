@@ -5,15 +5,23 @@ let handler = Fresh.Handler.make({
     let isAllowed = await Utils.isAuthenticated(req)
     switch isAllowed {
     | true => Response.redirect(~url="/")
-    | false => ctx.render()
+    | false => {
+        let data =
+          Std.Http.Cookies.get(req.headers)
+          ->Dict.get("error")
+          ->Option.getOr("")
+
+        ctx.render(~data)
+      }
     }
   },
 })
 
 @jsx.component
-let make = () => {
+let make = (~data) => {
+  Console.log(data)
   <div>
-    <LoginForm />
+    <LoginForm error=data />
   </div>
 }
 
