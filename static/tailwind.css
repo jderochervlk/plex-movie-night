@@ -1,6 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+@source "../components/*.res";
+@source "../routes/*.res";
 
 @plugin "@tailwindcss/typography";
+
 @plugin "daisyui" {
   themes: night;
 }

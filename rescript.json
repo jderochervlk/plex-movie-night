@@ -1,43 +1,41 @@
 {
-    "name": "rescript-fresh-example",
-    "sources": [
-        {
-            "dir": "components",
-            "subdirs": true
-        },
-        {
-            "dir": "routes",
-            "subdirs": true
-        },
-        {
-            "dir": "bindings",
-            "subdirs": true
-        },
-        {
-            "dir": "src",
-            "subdirs": true
-        }
-    ],
-    "package-specs": [
-        {
-            "module": "esmodule",
-            "in-source": true
-        }
-    ],
-    "suffix": ".mjs",
-    "jsx": {
-        "module": "preact"
+  "name": "rescript-fresh-example",
+  "sources": [
+    {
+      "dir": "components",
+      "subdirs": true
     },
-    "bs-dependencies": [
-        "@rescript/webapi",
-        "@jvlk/rescript-fresh",
-        "rescript-edgedb"
-    ],
-    "bsc-flags": [
-        "-open WebAPI.Global",
-        "-open Html"
-    ],
-    "ppx-flags": ["rescript-embed-lang/ppx"],
-    "external-stdlib" : "@rescript/std"
+    {
+      "dir": "routes",
+      "subdirs": true
+    },
+    {
+      "dir": "bindings",
+      "subdirs": true
+    },
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "esmodule",
+      "in-source": true
+    }
+  ],
+  "suffix": ".mjs",
+  "jsx": {
+    "module": "preact"
+  },
+  "bs-dependencies": [
+    "@rescript/webapi",
+    "@jvlk/rescript-fresh",
+    "rescript-edgedb"
+  ],
+  "bsc-flags": [
+    "-open WebAPI.Global"
+  ],
+  "ppx-flags": ["rescript-embed-lang/ppx"],
+  "external-stdlib": "@rescript/std"
 }
-

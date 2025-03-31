@@ -26,7 +26,7 @@ let handler = Fresh.Handler.make({
 })
 
 @jsx.component
-let make = (~data: option<data>) => {
+let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
     <>
@@ -50,6 +50,5 @@ let make = (~data: option<data>) => {
       {Preact.string("Something went wrong connecting to Plex.")}
     </div>
   }
-}
 
 let default = make

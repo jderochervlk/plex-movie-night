@@ -1,6 +1,7 @@
 import { Partial } from "$fresh/runtime.ts";
 import { PageProps } from "$fresh/server.ts";
 import { make as Header } from "../components/Header.mjs";
+import { make as Layout } from "../components/Layout.mjs";
 
 export default function ({ Component }: PageProps) {
   return (
@@ -15,11 +16,11 @@ export default function ({ Component }: PageProps) {
       <body f-client-nav class="prose min-w-screen">
         <Partial name="body">
           <Header />
-          <main class="max-width=[1700px] m-auto p-4 pt-10">
+          <Layout>
             <Partial name="main">
               <Component />
             </Partial>
-          </main>
+          </Layout>
         </Partial>
       </body>
     </html>
