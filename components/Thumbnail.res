@@ -1,6 +1,6 @@
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
-  <div class="card bg-base-100 card-xs shadow-sm">
+  <div class="card bg-base-100 card-xs shadow-sm w-full h-full">
     <img
       loading={index < 15 && aboveTheFold ? #eager : #lazy}
       title

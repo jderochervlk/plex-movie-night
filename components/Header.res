@@ -32,11 +32,13 @@ let make = () =>
         </div>
         <ul
           tabIndex=0
-          class="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3 w-52 p-2 shadow">
+          class="menu menu-sm dropdown-content bg-primary-content rounded-box z-1 mt-3 w-52 p-2 shadow">
           {links
           ->Array.map(link => {
             <li>
-              <a href=link.href> {Preact.string(link.title)} </a>
+              <a href=link.href class="text-lg text-neutral-content">
+                {Preact.string(link.title)}
+              </a>
             </li>
           })
           ->Preact.array}
