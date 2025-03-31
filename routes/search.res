@@ -61,12 +61,12 @@ let make = (~data: option<data>) => {
               value={query}
               type_="search"
               id="default-search"
-              class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-900 focus:border-blue-900 border-3 focus:outline-none"
+              class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-900 focus:border-blue-900 border-3 focus:outline-hidden"
               placeholder="Search by title"
             />
             <button
               type_="submit"
-              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-50 bg-blue-900 rounded-e-md border border-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600  ">
+              class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-50 bg-blue-900 rounded-e-md border border-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-hidden focus:ring-blue-300 dark:bg-blue-600  ">
               <img src="/search.svg" class="h-7" />
             </button>
           </div>

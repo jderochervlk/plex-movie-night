@@ -5,7 +5,7 @@ let make = (~children, ~action) => {
       <form method="post" action class="grid grid-flow-row gap-4 min-w-xl">
         {children}
         <button
-          class="bg-green-200 text-green-900 p-2 rounded-sm hover:bg-green-100 transition-colors"
+          class="bg-green-200 text-green-900 p-2 rounded-xs hover:bg-green-100 transition-colors"
           type_="submit">
           {Preact.string("Submit")}
         </button>

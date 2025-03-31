@@ -1,6 +1,6 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
-  <section class="max-w-screen-lg m-auto">
+  <section class="max-w-(--breakpoint-lg) m-auto">
     <div class="mb-8">
       <img
         src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}

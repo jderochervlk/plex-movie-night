@@ -8,9 +8,9 @@ let make = () => {
         >
           {"password"->Preact.string}
         </label>
-        <input type_="password" name="password" className="rounded-sm text-black" />
+        <input type_="password" name="password" className="rounded-xs text-black" />
         <button
-          className="bg-green-200 text-green-900 p-2 rounded-sm hover:bg-green-100 transition-colors"
+          className="bg-green-200 text-green-900 p-2 rounded-xs hover:bg-green-100 transition-colors"
           type_="submit">
           {Preact.string("Submit")}
         </button>
