@@ -1,6 +1,18 @@
+type links = {
+  title: string,
+  href: string,
+}
+
+let links: array<links> = [
+  {
+    title: "Watch",
+    href: "/watch",
+  },
+]
+
 @jsx.component
 let make = () =>
-  <header class="navbar bg-base-100 shadow-sm fixed">
+  <navigation class="navbar bg-primary text-primary-content fixed">
     <div class="navbar-start">
       <div class="dropdown">
         <div tabIndex=0 role="button" class="btn btn-ghost btn-circle">
@@ -20,15 +32,22 @@ let make = () =>
         </div>
         <ul
           tabIndex=0
-          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-          // <li><a>Homepage</a></li>
+          class="menu menu-sm dropdown-content bg-secondary rounded-box z-1 mt-3 w-52 p-2 shadow">
+          {links
+          ->Array.map(link => {
+            <li>
+              <a href=link.href> {Preact.string(link.title)} </a>
+            </li>
+          })
+          ->Preact.array}
+          //
           // <li><a>Portfolio</a></li>
           // <li><a>About</a></li>
         </ul>
       </div>
     </div>
     <div class="navbar-center">
-      <a class="btn btn-ghost text-xl" />
+      <a class="btn btn-ghost text-xl"> {Preact.string("Movie Night")} </a>
     </div>
     <div class="navbar-end">
       <a class="btn btn-ghost btn-circle" href="/search" title="search">
@@ -47,7 +66,7 @@ let make = () =>
         </svg>
       </a>
     </div>
-  </header>
+  </navigation>
 // let make = () =>
 //   <header class="p-3 mx-auto bg-blue-900">
 //     <div class="max-w-(--breakpoint-lg) flex place-content-between mx-auto">
