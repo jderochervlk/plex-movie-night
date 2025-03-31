@@ -16,9 +16,8 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool) => {
                   flex items-end justify-center p-2
                   w-full
                   inset-0 rounded-md h-[150px] relative mt-[-150px]
-                  bg-linear-to-t from-green-800  from-20% via-30% to-transparent to-80%">
-              {Preact.string("on watchlist")}
-            </div>
+                  bg-linear-to-t from-green-800  from-20% via-30% to-transparent to-80%"
+            />
           </>
         }
       : Preact.null}
