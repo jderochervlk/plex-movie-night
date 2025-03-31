@@ -31,7 +31,11 @@ let make = (~data: option<data>) => {
   | Some(data) =>
     <>
       <Movies
-        movies=data.newest wantToWatch=data.moviesToWatch heading="Recently Released" redirect="/"
+        movies=data.newest
+        wantToWatch=data.moviesToWatch
+        heading="Recently Released"
+        redirect="/"
+        aboveTheFold=true
       />
       <Movies
         movies=data.recentlyAdded

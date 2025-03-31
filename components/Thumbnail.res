@@ -2,7 +2,7 @@
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
   <div class="card bg-base-100 card-xs shadow-sm">
     <img
-      loading={index > 15 && aboveTheFold ? #lazy : #eager}
+      loading={index < 15 && aboveTheFold ? #eager : #lazy}
       title
       alt=title
       src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}

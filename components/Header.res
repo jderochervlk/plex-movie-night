@@ -40,14 +40,11 @@ let make = () =>
             </li>
           })
           ->Preact.array}
-          //
-          // <li><a>Portfolio</a></li>
-          // <li><a>About</a></li>
         </ul>
       </div>
     </div>
     <div class="navbar-center">
-      <a class="btn btn-ghost text-xl"> {Preact.string("Movie Night")} </a>
+      <a class="btn btn-ghost text-xl" href="/"> {Preact.string("Movie Night")} </a>
     </div>
     <div class="navbar-end">
       <a class="btn btn-ghost btn-circle" href="/search" title="search">

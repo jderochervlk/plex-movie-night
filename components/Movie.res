@@ -1,6 +1,6 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
-  <section class="max-w-(--breakpoint-lg) m-auto">
+  <section class="max-w-(--breakpoint-lg) m-auto text-base-content">
     <div class="mb-8">
       <img
         src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
@@ -18,7 +18,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
         value={wantToWatch === "true" ? "false" : "true"}
       />
       <button
-        class={`rounded-lg p-4 ${wantToWatch === "true" ? "bg-red-900" : "bg-blue-900"}`}
+        class={`btn btn-wide ${wantToWatch === "true" ? "btn-error" : "btn-neutral"}`}
         type_="submit">
         {Preact.string(wantToWatch === "true" ? "Remove from watchlist" : "Add to watchlist")}
       </button>
