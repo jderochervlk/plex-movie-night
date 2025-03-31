@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import "tailwindcss" source(none);
+
+@source "**/*.mjs";
+@source "**/*.tsx";
 
 @layer theme, base, components, utilities;
 @import "tailwindcss/theme.css" layer(theme);
