@@ -1,5 +1,5 @@
 {
-  "lock": true,
+  "lock": false,
   "tasks": {
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run -A -",
@@ -7,6 +7,7 @@
     "start:fresh": "deno run -A --watch=static/,routes/ dev.ts",
     "start:rescript": "rescript -w",
     "start:edgedb": "deno run build:edgedb -- --watch",
+    "css": "./tailwindcss -i ./static/tailwind.css -o ./static/styles.css --minify",
     "prepare": "deno install --allow-scripts && deno task res:build",
     "build": "deno run -A dev.ts build",
     "preview": "deno run -A main.ts",
@@ -33,15 +34,14 @@
     "@rescript/webapi": "npm:@rescript/webapi@experimental",
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
+    "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
+    "daisyui": "npm:daisyui@^5.0.9",
     "edgedb": "npm:edgedb@1.3.6",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
     "rescript-edgedb": "npm:rescript-edgedb",
     "rescript-embed-lang": "npm:rescript-embed-lang",
-    "rescript": "npm:rescript@12.0.0-alpha.7",
-    "tailwindcss": "npm:tailwindcss@3.4.1",
-    "tailwindcss/": "npm:/tailwindcss@3.4.1/",
-    "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js"
+    "rescript": "npm:rescript@12.0.0-alpha.7"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

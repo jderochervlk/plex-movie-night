@@ -29,9 +29,9 @@ jobs:
           path: |
             - **/node_modules
             - **/lib
-          key: cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
+          key: cache-${{ runner.os }}-${{ hashFiles('**/deno.json') }}
           restore-keys: |
-            - cache-${{ runner.os }}-${{ hashFiles('**/deno.lock') }}
+            - cache-${{ runner.os }}-${{ hashFiles('**/deno.json') }}
             - cache-${{ runner.os }}
             - cache
 

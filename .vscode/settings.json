@@ -19,5 +19,8 @@
   ],
   "[rescript]": {
     "editor.defaultFormatter": "chenglou92.rescript-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
   }
 }
