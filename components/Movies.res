@@ -17,7 +17,7 @@ let make = (
       class="not-prose grid grid-flow-row-dense grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-8 2xl:grid-cols-12 items-center">
       {movies
       ->Array.mapWithIndex(({title, thumb, ratingKey}, index) =>
-        <div class="h-full">
+        <div class="h-full min-h-[178px]">
           <a
             href={`/movie/${ratingKey->Int.toString}?redirect=${redirect}`}
             title
