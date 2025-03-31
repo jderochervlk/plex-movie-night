@@ -12,7 +12,7 @@ export default function ({ Component }: PageProps) {
         <title>Movie Night</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body f-client-nav class="prose">
+      <body f-client-nav class="prose min-w-screen">
         <Partial name="body">
           <Header />
           <main class="max-width=[1700px] m-auto p-4 pt-10">
