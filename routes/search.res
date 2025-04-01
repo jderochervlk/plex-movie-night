@@ -11,8 +11,11 @@ let handler = Fresh.Handler.make({
 
       let query =
         ctx.url.search
-        ->String.split("=")
-        ->Array.at(1)
+        ->String.replace("?", "")
+        ->String.split("&")
+        ->Array.map(String.split(_, "="))
+        ->Array.find(x => x[0] == Some("query"))
+        ->Option.flatMap(Array.at(_, 1))
         ->Option.map(decodeURIComponent)
         ->Option.getOr("")
 
@@ -46,11 +49,6 @@ let make = (~data: option<data>) => {
     {switch data {
     | Some({movies, moviesToWatch, query}) =>
       <>
-        // <form action="/search" method="post" class="w-full m-auto">
-        //   <label class="block"> {"Search"->Preact.string} </label>
-        //   <input name="query" class="text-black rounded-lg p-2" value={query} />
-        // </form>
-
         <form class="max-w-md mx-auto pt-10 text-center" action="/search" method="post">
           <label class="input bg-base-content text-secondary-content">
             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

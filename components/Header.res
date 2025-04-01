@@ -12,7 +12,7 @@ let links: array<links> = [
 
 @jsx.component
 let make = () =>
-  <navigation class="navbar bg-primary text-primary-content fixed z-100">
+  <navigation class="navbar bg-primary text-primary-content fixed z-100 prose">
     <div class="navbar-start">
       <div class="dropdown">
         <div tabIndex=0 role="button" class="btn btn-ghost btn-circle">
@@ -36,7 +36,7 @@ let make = () =>
           {links
           ->Array.map(link => {
             <li>
-              <a href=link.href class="text-lg text-neutral-content">
+              <a href=link.href class="text-lg text-secondary-content" fClientNav=false>
                 {Preact.string(link.title)}
               </a>
             </li>
