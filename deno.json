@@ -26,7 +26,7 @@
     }
   },
   "imports": {
-    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.6.0",
+    "@jvlk/rescript-fresh": "npm:@jvlk/rescript-fresh@^0.7.1",
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@rescript/core": "npm:@rescript/core",

@@ -31,10 +31,7 @@ let make = (~error: string) => {
       action="/api/login"
       class="card m-auto bg-neutral text-primary-content px-10 pt-5 pb-10 mt-30 shadow-lg min-w-sm">
       {wrongPassword ? <Alert /> : Preact.null}
-      <label
-        class="text-lg input input-primary my-5"
-        /* todo: doesn't have for as a prop, I'll need to add it to my Preact bindings */
-      >
+      <label class="text-lg input input-primary my-5" \"for"="password">
         <span class="label bg"> {"password"->Preact.string} </span>
         <input type_="password" name="password" class="my-1" />
       </label>
