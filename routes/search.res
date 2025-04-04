@@ -50,7 +50,7 @@ let make = (~data: option<data>) => {
     | Some({movies, moviesToWatch, query}) =>
       <>
         <form class="max-w-md mx-auto pt-10 text-center" action="/search" method="post">
-          <label class="input bg-base-content text-secondary-content">
+          <label \"for"="query" class="input bg-base-content text-secondary-content">
             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g
                 strokeLinejoin="round"
