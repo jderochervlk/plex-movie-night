@@ -12,7 +12,8 @@ let links: array<links> = [
 
 @jsx.component
 let make = () =>
-  <navigation class="navbar bg-primary text-primary-content fixed z-100 prose">
+  <navigation
+    class="navbar bg-primary text-primary-content fixed z-100 prose w-screen left-0 right-0">
     <div class="navbar-start">
       <div class="dropdown">
         <div tabIndex=0 role="button" class="btn btn-ghost btn-circle">
