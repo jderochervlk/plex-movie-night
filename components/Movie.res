@@ -2,7 +2,7 @@
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
   <section class="max-w-(--breakpoint-lg) prose m-auto">
     <div class="min-h-[300px]">
-      <h2 class="text-center"> {Preact.string(title)} </h2>
+      <h2> {Preact.string(title)} </h2>
       <img
         src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
         class="object-contain h-[250px] float-right ml-4 mb-1 rounded-lg md:h-[350px]"
