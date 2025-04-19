@@ -1,6 +1,6 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
-  <section class="max-w-(--breakpoint-lg) prose">
+  <section class="max-w-(--breakpoint-lg) prose m-auto">
     <div class="min-h-[300px]">
       <h2 class="text-center"> {Preact.string(title)} </h2>
       <img
