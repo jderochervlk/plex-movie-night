@@ -19,7 +19,6 @@ let handler = Fresh.Handler.make({
 
 @jsx.component
 let make = (~data) => {
-  Console.log(data)
   <div>
     <LoginForm error=data />
   </div>

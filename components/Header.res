@@ -8,6 +8,30 @@ let links: array<links> = [
     title: "Watch",
     href: "/watch",
   },
+  {
+    title: "2020s",
+    href: "/decade/2020",
+  },
+  {
+    title: "2010s",
+    href: "/decade/2010",
+  },
+  {
+    title: "2000s",
+    href: "/decade/2000",
+  },
+  {
+    title: "1990s",
+    href: "/decade/1990",
+  },
+  {
+    title: "1980s",
+    href: "/decade/1980",
+  },
+  {
+    title: "1970s",
+    href: "/decade/1970",
+  },
 ]
 
 @jsx.component

@@ -7,6 +7,7 @@ import * as $_app from "./routes/_app.tsx";
 import * as $api_login from "./routes/api/login.mjs";
 import * as $api_name from "./routes/api/name.mjs";
 import * as $api_thumb_title_ from "./routes/api/thumb/[title].mjs";
+import * as $decade_year_ from "./routes/decade/[year].mjs";
 import * as $index from "./routes/index.mjs";
 import * as $movie_ratingKey_ from "./routes/movie/[ratingKey].mjs";
 import * as $search from "./routes/search.mjs";
@@ -23,6 +24,7 @@ const manifest = {
     "./routes/api/login.mjs": $api_login,
     "./routes/api/name.mjs": $api_name,
     "./routes/api/thumb/[title].mjs": $api_thumb_title_,
+    "./routes/decade/[year].mjs": $decade_year_,
     "./routes/index.mjs": $index,
     "./routes/movie/[ratingKey].mjs": $movie_ratingKey_,
     "./routes/search.mjs": $search,
