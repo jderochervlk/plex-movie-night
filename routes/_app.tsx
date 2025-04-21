@@ -2,6 +2,7 @@ import { Partial } from "$fresh/runtime.ts";
 import { PageProps } from "$fresh/server.ts";
 import { make as Header } from "../components/Header.mjs";
 import { make as Layout } from "../components/Layout.mjs";
+import { Scroll } from "../islands/Scroll.tsx";
 
 export default function ({ Component }: PageProps) {
   return (
@@ -18,6 +19,7 @@ export default function ({ Component }: PageProps) {
       <body f-client-nav class="w-full">
         <Partial name="body">
           <Header />
+          <Scroll />
           <Layout>
             <Partial name="main">
               <Component />

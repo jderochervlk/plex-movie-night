@@ -25,11 +25,17 @@ let handler = Fresh.Handler.make({
     }),
 })
 
+module Scroll = {
+  @jsx.component @module("../islands/Scroll.tsx")
+  external make: unit => Preact.element = "Scroll"
+}
+
 @jsx.component
 let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
     <>
+      <Scroll />
       <Movies
         movies=data.newest
         wantToWatch=data.moviesToWatch

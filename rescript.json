@@ -16,6 +16,10 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "islands",
+      "subdirs": true
     }
   ],
   "package-specs": [
