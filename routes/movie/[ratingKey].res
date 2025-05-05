@@ -50,7 +50,7 @@ let handler = Fresh.Handler.make({
             ~ratingKey,
             ~wantToWatch=await req
             ->Request.formData
-            ->Promise.thenResolve(FormData.get2(_, "wantToWatch")),
+            ->Promise.thenResolve(FormData.get(_, "wantToWatch")),
           )
           redirect
         }

@@ -2,7 +2,7 @@ open WebAPI
 
 let handler = Fresh.Handler.make({
   post: async (req: FetchAPI.request, _ctx) => {
-    let name = await req->Request.formData->Promise.thenResolve(FormData.get2(_, "name"))
+    let name = await req->Request.formData->Promise.thenResolve(FormData.get(_, "name"))
     switch await Utils.isAuthenticated(req) {
     | true => {
         let _ = User.createAllUsers()

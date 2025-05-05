@@ -32,7 +32,7 @@ let handler = Fresh.Handler.make({
         await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)
 
       let form = await req->Request.formData
-      let query = form->FormData.get2("query")
+      let query = form->FormData.get("query")
 
       let data = switch await Plex.Api.search(query) {
       | Some(movies) => {movies, moviesToWatch, query}

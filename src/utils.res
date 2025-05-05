@@ -33,7 +33,7 @@ let sixMonthsFromNow = () => {
 let doesPasswordMatch = async req => {
   let form = await req->Request.formData
 
-  let password = form->WebAPI.FormData.get2("password")
+  let password = form->WebAPI.FormData.get("password")
 
   password == Env.password()
 }
