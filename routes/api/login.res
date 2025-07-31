@@ -18,7 +18,7 @@ let handler = Fresh.Handler.make({
 
       let headers = HeadersInit.fromHeaders(headers)
 
-      Response.make2(~init={status: 303, headers})
+      Response.fromNull(~init={status: 303, headers})
     } else {
       let headers = Headers.make()
       headers->Headers.set(~name="location", ~value="/")
@@ -32,7 +32,7 @@ let handler = Fresh.Handler.make({
         secure: true,
       })
       let headers = HeadersInit.fromHeaders(headers)
-      Response.make2(~init={status: 302, headers})
+      Response.fromNull(~init={status: 302, headers})
     }
   },
 })

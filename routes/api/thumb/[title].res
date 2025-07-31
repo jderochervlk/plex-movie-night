@@ -12,11 +12,11 @@ let handler = Fresh.Handler.make({
 
       let headers = Headers.fromKeyValueArray(
         [
-          ["Expires", Utils.sixMonthsFromNow()->Date.toDateString],
-          ["Cache-Control", "public"],
+          ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
+          ("Cache-Control", "public"),
         ],
       )
 
-      Response.make4(~body=image, ~init={status: 200, headers: HeadersInit.fromHeaders(headers)})
+      Response.fromArrayBuffer(image, ~init={status: 200, headers: HeadersInit.fromHeaders(headers)})
     }),
 })
