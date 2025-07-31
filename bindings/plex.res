@@ -57,7 +57,8 @@ module Movie = {
 }
 
 module Api = {
-  let headers = Headers.make(~init=[["Accept", "application/json"]])
+  let headers = Headers.make()
+  headers->Headers.append(~name="Accept", ~value="application/json")
 
   let onlyMovies = (items: array<MediaContainer.media>) =>
     items

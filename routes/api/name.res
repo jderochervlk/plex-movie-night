@@ -18,9 +18,9 @@ let handler = Fresh.Handler.make({
           secure: true,
         })
         let headers = HeadersInit.fromHeaders(headers)
-        Response.make2(~init={status: 303, headers})
+        Response.fromNull(~init={status: 303, headers})
       }
-    | false => Response.make2(~init={status: 403})
+    | false => Response.fromNull(~init={status: 403})
     }
   },
 })
