@@ -34,7 +34,6 @@
   },
   "bs-dependencies": [
     "@rescript/webapi",
-    "@jvlk/rescript-fresh",
     "rescript-edgedb"
   ],
   "bsc-flags": [
