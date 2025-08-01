@@ -3,10 +3,7 @@ module Kv = {
 
   type commitResult
 
-  type entry = {
-    key: array<string>,
-    value: Null.t<array<string>>,
-  }
+  type entry = {value: Null.t<array<string>>}
 
   @scope("Deno")
   external openKv: unit => promise<t> = "openKv"
