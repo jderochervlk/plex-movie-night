@@ -11,12 +11,12 @@ import { start } from "$fresh/server.ts";
 import manifest from "./fresh.gen.ts";
 import config from "./fresh.config.ts";
 
-const kv = await Deno.openKv()
+const kv = await Deno.openKv();
 
-const s = await kv.set(["foo"], 'bar')
+const s: Deno.KvCommitResult = await kv.set(["foo"], "bar");
 
-const val = await kv.get(["foo"])
+const val = await kv.get(["foo"]);
 
-console.log(val)
+console.log(val);
 
 await start(manifest, config);

@@ -2,15 +2,6 @@ let client = EdgeDB.Client.make()
 
 type wantTowach = [#"true" | #"false"]
 
-let selectUser = %edgeql(`
-    # @name selectUser
-    select default::User {
-        movies,
-        name
-    }
-    filter .name = <str>$name
-`)
-
 let selectAllUsers = %edgeql(`
     # @name selectAllUsers
     select default::User {

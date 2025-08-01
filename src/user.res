@@ -5,12 +5,18 @@ type t = {
   movies: array<string>,
 }
 
-let getMovies = async (~name) => {
-  let client = Db.client
-  switch await client->Db.selectUser({name: name}) {
-  | [user] => user.movies->Null.getOr([])->Set.fromArray
-  | _ => Set.make()
+let getUser = async name => {
+  let kv = await Deno.Kv.openKv()
+  let user = await kv->Deno.Kv.get(["users", name])
+  switch user.value->Null.toOption {
+  | Some(movies) => {name, movies}
+  | None => {name, movies: []}
   }
+}
+
+let getMovies = async (~name) => {
+  let user = await getUser(name)
+  user.movies->Set.fromArray
 }
 
 let toggleMovie = async (~name, ~ratingKey, ~wantToWatch) => {
@@ -43,42 +49,41 @@ let getCurrentUser = (req: FetchAPI.request) =>
   ->Dict.get("name")
   ->Option.getUnsafe // we can get this unsafe since we already redirect if the user doesn't exist
 
-/**
- Make sure all the users defined in the env exist in the DB
- */
-let createAllUsers = async () => {
-  let client = Db.client
-  let users = Env.names()
-  for i in 0 to users->Array.length {
-    switch users[i] {
-    | Some(name) =>
-      // check if user exists
-      switch await client->Db.selectUser({name: name}) {
-      | [_] => () // if user already exists, do nothing
-      | _ => {
-          // if user doesn't exist, create user
-          let res = await client->Db.insertUser({name: name})
-          switch res {
-          | Ok(_) => ()
-          | Error(err) => Console.error(err)
-          }
-        }
-      }
-    | None => ()
+let createUser = async name => {
+  let kv = await Deno.Kv.openKv()
+  let user = await kv->Deno.Kv.get(["users", name])
+  switch user.value->Null.toOption {
+  | Some(_) => ()
+  | None => {
+      let _ = await kv->Deno.Kv.set(["users", name], [])
     }
   }
 }
 
-let getAllUsers = async () => await Db.client->Db.selectAllUsers
+/**
+ Make sure all the users defined in the env exist in the DB
+ */
+let createAllUsers = async () => {
+  let names = Env.names()
+  let _ = names->Array.forEach(name => {
+    let _ = createUser(name)
+  })
+}
 
-// let countVotes = (users: Db__edgeql.SelectAllUsers.response) => {
-//   let votes = Dict.make()
+let getUser = async name => {
+  let kv = await Deno.Kv.openKv()
+  let user = await kv->Deno.Kv.get(["users", name])
+  switch user.value->Null.toOption {
+  | Some(movies) => {name, movies}
+  | None => {name, movies: []}
+  }
+}
 
-//   let _ = users->Array.forEach(user => {
-//     let _ =
-//       user.movies
-//       ->Null.toOption
-//       ->Option.getOr([])
-//       ->Array.forEach(movies => ())
-//   })
-// }
+let getAllUsers = async () => {
+  let kv = await Deno.Kv.openKv()
+  let users = await kv->Deno.Kv.get(["users"])
+  switch users.value->Null.toOption {
+  | Some(users) => await Promise.all(users->Array.map(getUser))
+  | None => []
+  }
+}
