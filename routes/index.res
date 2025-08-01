@@ -8,8 +8,6 @@ type data = {
 let handler = Fresh.Handler.make({
   get: async (req, ctx) =>
     await Utils.authCheck(req, async () => {
-      let _ = await User.createAllUsers()
-
       let user = User.getCurrentUser(req)
       let moviesToWatch =
         await User.getMovies(~name=user)->Promise.thenResolve(movies => movies->Set.toArray)

@@ -14,13 +14,17 @@ let getUser = async name => {
   }
 }
 
+let setUserMovies = async (name: string, movies: array<string>) => {
+  let kv = await Deno.Kv.openKv()
+  await kv->Deno.Kv.set(["users", name], movies)
+}
+
 let getMovies = async (~name) => {
   let user = await getUser(name)
   user.movies->Set.fromArray
 }
 
 let toggleMovie = async (~name, ~ratingKey, ~wantToWatch) => {
-  let client = Db.client
   let movies = await getMovies(~name)
   let wantToWatch = wantToWatch === "true"
   if movies->Set.has(ratingKey) {
@@ -29,12 +33,12 @@ let toggleMovie = async (~name, ~ratingKey, ~wantToWatch) => {
     } else {
       // movie needs to be removed
       let _ = movies->Set.delete(ratingKey)
-      let _ = await client->Db.setUserMovies({name, movies: movies->Set.toArray})
+      let _ = await setUserMovies(name, movies->Set.toArray)
     }
   } else {
     // movie needs to be added
     movies->Set.add(ratingKey)
-    let _ = await client->Db.setUserMovies({name, movies: movies->Set.toArray})
+    let _ = await setUserMovies(name, movies->Set.toArray)
   }
 }
 
