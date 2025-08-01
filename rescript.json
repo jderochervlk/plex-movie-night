@@ -33,12 +33,10 @@
     "module": "preact"
   },
   "bs-dependencies": [
-    "@rescript/webapi",
-    "rescript-edgedb"
+    "@rescript/webapi"
   ],
   "bsc-flags": [
     "-open WebAPI.Global"
   ],
-  "ppx-flags": ["rescript-embed-lang/ppx"],
   "external-stdlib": "@rescript/std"
 }

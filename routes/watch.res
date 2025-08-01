@@ -8,7 +8,7 @@ let handler = Fresh.Handler.make({
       await User.getAllUsers()->Promise.thenResolve(
         Array.forEach(_, user => {
           let name = user.name
-          let movies = user.movies->Null.getOr([])
+          let movies = user.movies
           movies->Array.forEach(
             ratingKey => {
               let existing = votes->Dict.get(ratingKey)->Option.getOr([])
