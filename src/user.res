@@ -77,7 +77,10 @@ let getUser = async name => {
   let user = await kv->Deno.Kv.get(["users", name])
   switch user.value->Null.toOption {
   | Some(movies) => {name, movies}
-  | None => {name, movies: []}
+  | None => {
+      await createUser(name)
+      {name, movies: []}
+    }
   }
 }
 
