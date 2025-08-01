@@ -17,7 +17,7 @@ const s: Deno.KvCommitResult = await kv.set(["foo"], "bar");
 
 const val = await kv.get(["foo"]);
 
-await kv.set(["testing", "test"], "value");
+await kv.set(["testing", "one"], ["value", "two"]);
 
 console.log(val);
 
