@@ -52,7 +52,7 @@ let getCurrentUser = (req: FetchAPI.request) =>
 let createUser = async name => {
   let kv = await Deno.Kv.openKv()
   let user = await kv->Deno.Kv.get(["users", name])
-  Console.log(user)
+  Console.log2("create user", user)
   switch user.value->Null.toOption {
   | Some(_) => ()
   | None => {
@@ -66,7 +66,7 @@ let createUser = async name => {
  */
 let createAllUsers = async () => {
   let names = Env.names()
-  Console.log(names)
+  Console.log2("names", names)
   let _ = names->Array.forEach(name => {
     let _ = createUser(name)
   })
@@ -78,7 +78,8 @@ let getUser = async name => {
   switch user.value->Null.toOption {
   | Some(movies) => {name, movies}
   | None => {
-      await createUser(name)
+      let x = await createUser(name)
+      Console.log2("creating user...", x)
       {name, movies: []}
     }
   }
