@@ -66,6 +66,14 @@ let createUser = async name => {
  */
 let createAllUsers = async () => {
   let names = Env.names()
+  let kv = await Deno.Kv.openKv()
+  let users = await kv->Deno.Kv.get(["users"])
+  switch users.value->Null.toOption {
+  | Some(_) => ()
+  | None => {
+      let _ = await kv->Deno.Kv.set(["users"], [])
+    }
+  }
   Console.log2("names", names)
   let _ = names->Array.forEach(name => {
     let _ = createUser(name)
