@@ -1,5 +1,5 @@
 {
-  "name": "rescript-fresh-example",
+  "name": "plex-movie-night",
   "sources": [
     {
       "dir": "components",
@@ -32,10 +32,10 @@
   "jsx": {
     "module": "preact"
   },
-  "bs-dependencies": [
+  "dependencies": [
     "@rescript/webapi"
   ],
-  "bsc-flags": [
+  "flags": [
     "-open WebAPI.Global"
   ],
   "external-stdlib": "@rescript/std"
