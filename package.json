@@ -1,9 +1,3 @@
 {
-  "name": "plex-movie-night",
-  "dependencies": {
-    "@rescript/std": "12.0.0-beta.4",
-    "@rescript/webapi": "0.1.0-experimental-fe47fc9",
-    "rescript": "12.0.0-beta.4",
-    "@tailwindcss/typography": "0.5.16"
-  }
+  "name": "plex-movie-night"
 }

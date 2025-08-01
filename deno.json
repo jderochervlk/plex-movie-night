@@ -7,7 +7,7 @@
     "start:fresh": "deno run -A --unstable-kv --watch=static/,routes/ dev.ts --unstable-kv",
     "start:rescript": "rescript -w",
     "css": "./tailwindcss -i ./static/tailwind.css -o ./static/styles.css",
-    "prepare": "deno install --allow-scripts && npm i && deno task res:build",
+    "prepare": "deno install --allow-scripts && deno task res:build",
     "build": "deno run -A --unstable-kv dev.ts build",
     "preview": "deno run -A --unstable-kv main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
@@ -28,12 +28,14 @@
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
     "@rescript/linux-x64": "npm:@rescript/linux-x64@12.0.0-beta.3",
     "@rescript/std": "npm:@rescript/std@12.0.0-beta.3",
+    "@rescript/webapi": "npm:@rescript/webapi@0.1.0-experimental-fe47fc9",
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
     "daisyui": "npm:daisyui@^5.0.9",
     "preact": "https://esm.sh/preact@10.22.0",
-    "preact/": "https://esm.sh/preact@10.22.0/"
+    "preact/": "https://esm.sh/preact@10.22.0/",
+    "rescript": "npm:rescript@12.0.0-beta.3"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
