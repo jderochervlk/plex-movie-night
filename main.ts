@@ -17,6 +17,8 @@ const s: Deno.KvCommitResult = await kv.set(["foo"], "bar");
 
 const val = await kv.get(["foo"]);
 
+await kv.set(["testing", "test"], "value");
+
 console.log(val);
 
 await start(manifest, config);
