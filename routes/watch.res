@@ -51,11 +51,11 @@ let make = (~data: data) => {
   switch data.movies->Array.length > 1 {
   | false =>
     <section class="w-full mt-5 text-center">
-      <h2 class="text-xl">
+      <h2 class="text-2xl mb-4">
         {Preact.string("There are no movies found that this group has in common.")}
       </h2>
-      <a href="/configure"> {Preact.string("Make sure you have selected the active viewers.")} </a>
-      <p> {Preact.string("And go select more movies!")} </p>
+      <a href="/configure"> {Preact.string("Make sure you have selected the active viewers,")} </a>
+      <p> {Preact.string("and go select more movies!")} </p>
     </section>
   | true =>
     <section>

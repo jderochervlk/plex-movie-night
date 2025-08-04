@@ -33,7 +33,7 @@ let handler = Fresh.Handler.make({
 
 @jsx.component
 let make = (~data: data) =>
-  <section>
+  <section class="mx-auto max-w-lg">
     <form
       fClientNav=false
       method="post"

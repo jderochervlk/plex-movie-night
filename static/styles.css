@@ -20,6 +20,7 @@
     --breakpoint-2xl: 96rem;
     --container-sm: 24rem;
     --container-md: 28rem;
+    --container-lg: 32rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-lg: 1.125rem;
@@ -1446,6 +1447,9 @@
   .mb-3 {
     margin-bottom: calc(var(--spacing) * 3);
   }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -1647,6 +1651,9 @@
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
+  .w-auto {
+    width: auto;
+  }
   .w-full {
     width: 100%;
   }
@@ -1661,6 +1668,9 @@
   }
   .max-w-\(--breakpoint-md\) {
     max-width: var(--breakpoint-md);
+  }
+  .max-w-lg {
+    max-width: var(--container-lg);
   }
   .max-w-md {
     max-width: var(--container-md);
@@ -1685,6 +1695,9 @@
   }
   .items-center {
     align-items: center;
+  }
+  .justify-between {
+    justify-content: space-between;
   }
   .justify-center {
     justify-content: center;
