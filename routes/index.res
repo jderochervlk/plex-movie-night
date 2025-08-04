@@ -54,7 +54,7 @@ let make = (~data: option<data>) =>
       />
     </>
   | None =>
-    <div className="w-full text-xl p-5 text-center">
+    <div class="w-full text-xl p-5 text-center">
       {Preact.string("Something went wrong connecting to Plex.")}
     </div>
   }

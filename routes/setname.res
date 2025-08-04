@@ -3,8 +3,9 @@ open WebAPI
 let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     let hasName = await Utils.hasNameSet(req)
+    let rootUrl = Utils.getRootUrl(req.url)
     switch hasName {
-    | true => Response.redirect(~url="/")
+    | true => Response.redirect(~url=rootUrl)
     | false => ctx.render()
     }
   },

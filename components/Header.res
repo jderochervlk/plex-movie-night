@@ -9,6 +9,10 @@ let links: array<links> = [
     href: "/watch",
   },
   {
+    title: "Configure",
+    href: "/configure",
+  },
+  {
     title: "2020s",
     href: "/decade/2020",
   },
@@ -37,8 +41,8 @@ let links: array<links> = [
 @jsx.component
 let make = () =>
   <div class="bg-primary text-primary-content fixed z-100 w-screen">
-    <navigation class="navbar max-w-(--breakpoint-2xl) m-auto">
-      <div class="navbar-start prose m">
+    <navigation class="navbar max-w-(--breakpoint-2xl) m-auto justify-between">
+      <div class="navbar-start prose m w-auto">
         <div class="dropdown">
           <div tabIndex=0 role="button" class="btn btn-ghost btn-circle">
             <svg
@@ -70,10 +74,10 @@ let make = () =>
           </ul>
         </div>
       </div>
-      <div class="navbar-center">
+      <div class="navbar-center w-auto">
         <a class="btn btn-ghost text-xl" href="/"> {Preact.string("Movie Night")} </a>
       </div>
-      <div class="navbar-end">
+      <div class="navbar-end w-auto">
         <a class="btn btn-ghost btn-circle" href="/search" title="search">
           <svg
             xmlns="http://www.w3.org/2000/svg"

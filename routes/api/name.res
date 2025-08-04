@@ -5,7 +5,9 @@ let handler = Fresh.Handler.make({
     let name = await req->Request.formData->Promise.thenResolve(FormData.get(_, "name"))
     switch await Utils.isAuthenticated(req) {
     | true => {
-        let _ = User.createAllUsers()
+        let users = await User.createAllUsers()
+        Console.debug2("api/name creating all users", users)
+
         let headers = Headers.make()
         headers->Headers.set(~name="location", ~value="/")
         headers->Std.Http.Cookies.set({
