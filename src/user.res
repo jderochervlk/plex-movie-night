@@ -54,14 +54,24 @@ let getCurrentUser = (req: FetchAPI.request) =>
   ->Option.getUnsafe // we can get this unsafe since we already redirect if the user doesn't exist
 
 let createUser = async name => {
+  Console.debug2("attempting to create user", name)
   let kv = await Deno.Kv.openKv()
   let user = await kv->Deno.Kv.get(["users", name])
-  switch user.value->Null.toOption {
-  | Some(_) => ()
+
+  Console.debug2("User creation response", user)
+
+  let res = switch user.value->Null.toOption {
+  | Some(name) => {
+      Console.debug2("User already exists", name)
+      None
+    }
   | None => {
-      let _ = await kv->Deno.Kv.set(["users", name], [])
+      let res = Some(await kv->Deno.Kv.set(["users", name], []))
+      Console.debug2("User did not exist", res)
+      res
     }
   }
+  res
 }
 
 /**
@@ -77,9 +87,11 @@ let createAllUsers = async () => {
       let _ = await kv->Deno.Kv.set(["users"], [])
     }
   }
-  let _ = names->Array.forEach(name => {
-    let _ = createUser(name)
+  await names
+  ->Array.map(async name => {
+    await createUser(name)
   })
+  ->Promise.all
 }
 
 let getUser = async name => {
@@ -95,10 +107,20 @@ let getUser = async name => {
 }
 
 let getAllUsers = async () => {
+  let names = Env.names()
+
+  await names
+  ->Array.map(getUser)
+  ->Promise.all
+}
+
+let getActiveUsers = async () => {
   let kv = await Deno.Kv.openKv()
-  let users = await kv->Deno.Kv.get(["users"])
-  switch users.value->Null.toOption {
-  | Some(users) => await Promise.all(users->Array.map(getUser))
-  | None => []
-  }
+  let users = await kv->Deno.Kv.get(["active"])
+  users.value->Null.getOr([])
+}
+
+let setActiveUsers = async (users: array<string>) => {
+  let kv = await Deno.Kv.openKv()
+  await kv->Deno.Kv.set(["active"], users)
 }

@@ -9,6 +9,10 @@ let links: array<links> = [
     href: "/watch",
   },
   {
+    title: "Configure",
+    href: "/configure",
+  },
+  {
     title: "2020s",
     href: "/decade/2020",
   },
