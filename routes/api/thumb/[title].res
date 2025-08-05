@@ -17,53 +17,18 @@ let handler = Fresh.Handler.make({
           ->fetch
           ->Promise.then(Response.arrayBuffer)
 
-        await ImageMagick.initialize()
-
-        let format = ref("image/webp")
-
-        let img: Uint8Array.t = {
-          let image = Uint8Array.fromBuffer(image)
-          let res = ref(image)
-
-          try {
-            // If the image conversion fails we just return the original image
-            let result = await ImageMagick.imageMagick.read(image, img => {
-              img.write(
-                ImageMagick.magickFormat.webp,
-                image => {
-                  Promise.resolve(image)
-                },
-              )
-            })
-            res := result
-          } catch {
-          | _ => {
-              Console.error("Failed to convert image to webp format")
-              format := "image/jpeg" // Fallback to JPEG if conversion fails
-              res := image
-            }
-          }
-          res.contents
-        }
-
         let headers = Headers.fromKeyValueArray([
           ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
-          format.contents == "image/webp"
-            ? ("Cache-Control", "public")
-            : ("Cache-Control", "no-Cache"),
-          ("Content-Type", format.contents),
-          // ("Content-Length", img.byte),
+          ("Cache-Control", "public"),
         ])
 
-        let res = Response.fromTypedArray(
-          img,
+        let res = Response.fromArrayBuffer(
+          image,
           ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
         )
 
-        // If the image is successfully converted to webp, cache it
-        if format.contents == "image/webp" {
-          await plexCache.put(req, res->Response.clone)
-        }
+        let _ = await plexCache.put(req, res->Response.clone)
+
         res
       })
     } else {
