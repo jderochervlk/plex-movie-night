@@ -14,3 +14,6 @@ module Kv = {
   @send
   external get: (t, array<string>) => promise<entry> = "get"
 }
+
+@module("jsr:@epi/image-to-webp")
+external toWebp: ArrayBuffer.t => promise<ArrayBuffer.t> = "default"

@@ -198,8 +198,8 @@ module Api = {
 
   let getThumb = url =>
     createUrl(
-      `/photo/:/transcode?width=${Int.toString(248 * 2)}&height=${Int.toString(
-          372 * 2,
+      `/photo/:/transcode?width=${Float.toString(248.0 *. 1.5)}&height=${Float.toString(
+          372.0 * 1.5,
         )}&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
       ~otherParams=true,
     )

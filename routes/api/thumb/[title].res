@@ -10,13 +10,16 @@ let handler = Fresh.Handler.make({
         ->fetch
         ->Promise.then(Response.arrayBuffer)
 
-      let headers = Headers.fromKeyValueArray(
-        [
-          ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
-          ("Cache-Control", "public"),
-        ],
-      )
+      let webpImage = await Deno.toWebp(image)
 
-      Response.fromArrayBuffer(image, ~init={status: 200, headers: HeadersInit.fromHeaders(headers)})
+      let headers = Headers.fromKeyValueArray([
+        ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
+        ("Cache-Control", "public"),
+      ])
+
+      Response.fromArrayBuffer(
+        webpImage,
+        ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
+      )
     }),
 })
