@@ -31,6 +31,7 @@
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
+    "@types/node": "npm:@types/node@^24.2.0",
     "daisyui": "npm:daisyui@^5.0.9",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",

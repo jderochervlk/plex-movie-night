@@ -17,3 +17,18 @@ module Kv = {
 
 @module("jsr:@epi/image-to-webp")
 external toWebp: ArrayBuffer.t => promise<ArrayBuffer.t> = "default"
+
+module Cache = {
+  type cache = {
+    match: WebAPI.FetchAPI.request => promise<Nullable.t<WebAPI.FetchAPI.response>>,
+    put: (WebAPI.FetchAPI.request, WebAPI.FetchAPI.response) => promise<unit>,
+  }
+  type caches = {@as("open") open_: string => promise<cache>}
+
+  external caches: caches = "caches"
+}
+
+module Timers = {
+  @module("node:timers/promises")
+  external setTimeout: (int, (unit => unit) => promise<unit>) => promise<unit> = "setTimeout"
+}
