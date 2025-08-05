@@ -1,3 +1,6 @@
+let imgHeight: int
+let imgWidth: int
+
 module Movie: {
   type t = {
     title: string,

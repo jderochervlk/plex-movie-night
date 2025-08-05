@@ -10,16 +10,26 @@ let handler = Fresh.Handler.make({
         ->fetch
         ->Promise.then(Response.arrayBuffer)
 
-      let webpImage = await Deno.toWebp(image)
+      await ImageMagick.initialize()
+
+      let img: Uint8Array.t = await ImageMagick.imageMagick.read(
+        Uint8Array.fromBuffer(image),
+        img => {
+          // let _ = img.resize(Plex.imgHeight, Plex.imgWidth)
+          img.write(
+            ImageMagick.magickFormat.webp,
+            image => {
+              Promise.resolve(image)
+            },
+          )
+        },
+      )
 
       let headers = Headers.fromKeyValueArray([
         ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
         ("Cache-Control", "public"),
       ])
 
-      Response.fromArrayBuffer(
-        webpImage,
-        ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
-      )
+      Response.fromTypedArray(img, ~init={status: 200, headers: HeadersInit.fromHeaders(headers)})
     }),
 })
