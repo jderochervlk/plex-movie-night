@@ -5,16 +5,12 @@ let plexCache = await Deno.Cache.caches.open_("plex-cache")
 let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     let cached = await plexCache.match(req)
+
     if cached->Nullable.isNullable {
       Console.debug2("Cache miss for", ctx.url.pathname)
       await Utils.authCheck(req, async () => {
-        let thumb = URLSearchParams.fromString(ctx.url.search)->URLSearchParams.get("thumb")
-
-        let _ = await Deno.Timers.setTimeout(5000, async _ => {
-          // Console.error("ImageMagick operation timed out")
-          // let _ = await Promise.thenResolve(42)
-          ()
-        })
+        let searchParams = URLSearchParams.fromString(ctx.url.search)
+        let thumb = searchParams->URLSearchParams.get("thumb")
 
         let image =
           await Plex.Api.getThumb(thumb)
@@ -28,25 +24,18 @@ let handler = Fresh.Handler.make({
         let img: Uint8Array.t = {
           let image = Uint8Array.fromBuffer(image)
           let res = ref(image)
+
           try {
-            // If the image conversion takes too long or fails we just return the original image
-            let _ = Deno.Timers.setTimeout(200, async _ => {
-              let result = await ImageMagick.imageMagick.read(
-                image,
-                img => {
-                  img.write(
-                    ImageMagick.magickFormat.webp,
-                    image => {
-                      Promise.resolve(image)
-                    },
-                  )
+            // If the image conversion fails we just return the original image
+            let result = await ImageMagick.imageMagick.read(image, img => {
+              img.write(
+                ImageMagick.magickFormat.webp,
+                image => {
+                  Promise.resolve(image)
                 },
               )
-              res := result
-            })->Promise.catch(_ => {
-              Console.error("ImageMagick operation timed out")
-              Promise.resolve()
             })
+            res := result
           } catch {
           | _ => {
               Console.error("Failed to convert image to webp format")
@@ -63,6 +52,7 @@ let handler = Fresh.Handler.make({
             ? ("Cache-Control", "public")
             : ("Cache-Control", "no-Cache"),
           ("Content-Type", format.contents),
+          // ("Content-Length", img.byte),
         ])
 
         let res = Response.fromTypedArray(
