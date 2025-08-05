@@ -30,6 +30,7 @@
     "@rescript/webapi": "npm:@rescript/webapi@0.1.0-experimental-fe47fc9",
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
+    "@silvia-odwyer/photon-node": "npm:@silvia-odwyer/photon-node@^0.3.4",
     "@tailwindcss/typography": "npm:@tailwindcss/typography@^0.5.16",
     "daisyui": "npm:daisyui@^5.0.9",
     "preact": "https://esm.sh/preact@10.22.0",

@@ -12,3 +12,11 @@ import config from "./fresh.config.ts";
 import manifest from "./fresh.gen.ts";
 
 await start(manifest, config);
+
+import photon from "npm:@silvia-odwyer/photon-node";
+
+const x = photon.PhotonImage.new_from_blob(new Blob());
+
+let t = x.get_base64();
+
+let res = new Response(t);
