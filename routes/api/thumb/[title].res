@@ -59,7 +59,9 @@ let handler = Fresh.Handler.make({
 
         let headers = Headers.fromKeyValueArray([
           ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
-          ("Cache-Control", "public"),
+          format.contents == "image/webp"
+            ? ("Cache-Control", "public")
+            : ("Cache-Control", "no-Cache"),
           ("Content-Type", format.contents),
         ])
 
