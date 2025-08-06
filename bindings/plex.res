@@ -1,5 +1,8 @@
 open WebAPI
 
+let imgHeight = 372
+let imgWidth = 248
+
 module MediaContainer = {
   // Even though we don't build things with this constructor it is used for pattern matching on external data
   @@warning("-37")
@@ -198,8 +201,10 @@ module Api = {
 
   let getThumb = url =>
     createUrl(
-      `/photo/:/transcode?width=${Int.toString(248 * 2)}&height=${Int.toString(
-          372 * 2,
+      `/photo/:/transcode?width=${Float.toString(
+          imgWidth->Int.toFloat * 1.5,
+        )}&height=${Float.toString(
+          imgHeight->Int.toFloat * 1.5,
         )}&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
       ~otherParams=true,
     )

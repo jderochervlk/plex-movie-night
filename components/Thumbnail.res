@@ -6,7 +6,8 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
       title
       alt=title
       src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
-      class="object-cover rounded-md w-full h-full"
+      class="object-cover rounded-md w-full h-full bg-gray-800 flex items-center text-center"
+      fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />
     {wantToWatch
       ? <div class="bg-success rounded-full absolute bottom-2 right-2">
