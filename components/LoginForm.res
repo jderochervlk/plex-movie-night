@@ -1,12 +1,8 @@
 module Alert = {
   @jsx.component
   let make = () =>
-    <div role="alert" class="alert alert-error">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-6 w-6 shrink-0 stroke-current"
-        fill="none"
-        viewBox="0 0 24 24">
+    <div role="alert" class="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -24,18 +20,11 @@ let make = (~error: string) => {
   | "wrong-password" => true
   | _ => false
   }
-  <div class="w-full flex items-center">
-    <form
-      fClientNav=false
-      method="post"
-      action="/api/login"
-      class="card m-auto bg-neutral text-primary-content px-10 pt-5 pb-10 mt-30 shadow-lg min-w-sm">
-      {wrongPassword ? <Alert /> : Preact.null}
-      <label class="text-lg input input-primary my-5" \"for"="password">
-        <span class="label bg"> {"password"->Preact.string} </span>
-        <input type_="password" name="password" class="my-1" />
-      </label>
-      <button class="btn btn-secondary w-full" type_="submit"> {Preact.string("Submit")} </button>
-    </form>
-  </div>
+
+  <form fClientNav=false method="post" action="/api/login" class="form-card">
+    {wrongPassword ? <Alert /> : Preact.null}
+    <label \"for"="password"> {"password"->Preact.string} </label>
+    <input type_="password" name="password" class="my-1" />
+    <button type_="submit"> {Preact.string("Submit")} </button>
+  </form>
 }

@@ -33,21 +33,17 @@ let handler = Fresh.Handler.make({
 
 @jsx.component
 let make = (~data: data) =>
-  <section class="mx-auto max-w-lg">
-    <form
-      fClientNav=false
-      method="post"
-      action="/configure"
-      class="card m-auto bg-neutral text-primary-content px-10 pt-5 pb-10 mt-3 shadow-lg min-w-sm">
-      <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-full border p-4 mb-6">
-        <legend class="fieldset-legend"> {Preact.string("Viewers")} </legend>
+  <section class="configure">
+    <form fClientNav=false method="post" action="/configure" class="form-card">
+      <fieldset>
+        <legend> {Preact.string("Viewers")} </legend>
         <Fresh.Partial name="active-users">
           {data.users
           ->Array.map(name => {
             let isActive = data.active->Array.includes(name)
             <>
-              <label class="label text-lg">
-                <input name type_="checkbox" defaultChecked=isActive class="checkbox" />
+              <label>
+                <input name type_="checkbox" defaultChecked=isActive />
                 {Preact.string(name)}
               </label>
             </>
@@ -55,9 +51,7 @@ let make = (~data: data) =>
           ->Preact.array}
         </Fresh.Partial>
       </fieldset>
-      <button class="btn btn-secondary w-full" type_="submit">
-        {Preact.string("update viewers")}
-      </button>
+      <button class="form-button" type_="submit"> {Preact.string("update viewers")} </button>
     </form>
   </section>
 

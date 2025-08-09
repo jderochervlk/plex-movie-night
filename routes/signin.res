@@ -21,9 +21,7 @@ let handler = Fresh.Handler.make({
 
 @jsx.component
 let make = (~data) => {
-  <div>
-    <LoginForm error=data />
-  </div>
+  <LoginForm error=data />
 }
 
 let default = make

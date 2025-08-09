@@ -45,13 +45,14 @@ let handler = Fresh.Handler.make({
 
 @jsx.component
 let make = (~data: option<data>) => {
-  <section>
+  <section class="search">
     {switch data {
     | Some({movies, moviesToWatch, query}) =>
       <>
-        <form class="max-w-md mx-auto pt-10 text-center" action="/search" method="post">
-          <label \"for"="query" class="input bg-base-content text-secondary-content">
-            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <form action="/search" method="post">
+          <input name="query" type_="search" placeholder="Search" value={query} />
+          <button type_="submit" title="search">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g
                 strokeLinejoin="round"
                 strokeLinecap="round"
@@ -62,32 +63,11 @@ let make = (~data: option<data>) => {
                 <path d="m21 21-4.3-4.3" />
               </g>
             </svg>
-            <input
-              name="query"
-              type_="search"
-              class="grow border-none"
-              placeholder="Search"
-              value={query}
-            />
-          </label>
-          // <div class="relative">
-          //   <input
-          //     name="query"
-          //     value={query}
-          //     type_="search"
-          //     id="default-search"
-          //     class="block w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-900 focus:border-blue-900 border-3 focus:outline-hidden"
-          //     placeholder="Search by title"
-          //   />
-          //   <button
-          //     type_="submit"
-          //     class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-gray-50 bg-blue-900 rounded-e-md border border-blue-900 hover:bg-blue-800 focus:ring-4 focus:outline-hidden focus:ring-blue-300 dark:bg-blue-600  "
-          //   />
-          // </div>
+          </button>
         </form>
         {switch (movies->Array.length, query) {
         | (_, "") => Preact.null
-        | (0, _) => <p class="text-center text-sm"> {Preact.string("No matches found.")} </p>
+        | (0, _) => <p> {Preact.string("No matches found.")} </p>
         | _ =>
           <>
             <Movies
@@ -99,10 +79,7 @@ let make = (~data: option<data>) => {
           </>
         }}
       </>
-    | None =>
-      <div class="w-full text-xl p-5 text-center">
-        {Preact.string("Something went wrong connecting to Plex.")}
-      </div>
+    | None => <h3> {Preact.string("Something went wrong connecting to Plex.")} </h3>
     }}
   </section>
 }
