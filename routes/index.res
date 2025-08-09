@@ -53,10 +53,7 @@ let make = (~data: option<data>) =>
         movies=data.eighties wantToWatch=data.moviesToWatch heading="Best of the 80s" redirect="/"
       />
     </>
-  | None =>
-    <div class="w-full text-xl p-5 text-center">
-      {Preact.string("Something went wrong connecting to Plex.")}
-    </div>
+  | None => <div> {Preact.string("Something went wrong connecting to Plex.")} </div>
   }
 
 let default = make

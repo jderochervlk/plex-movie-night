@@ -9,7 +9,7 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
       fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />
     {wantToWatch
-      ? <div class="bg-success rounded-full absolute bottom-2 right-2">
+      ? <div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"

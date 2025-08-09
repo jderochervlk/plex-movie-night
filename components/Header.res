@@ -63,9 +63,7 @@ let make = () =>
             {links
             ->Array.map(link => {
               <li>
-                <a href=link.href class="text-lg text-secondary-content" fClientNav=false>
-                  {Preact.string(link.title)}
-                </a>
+                <a href=link.href fClientNav=false> {Preact.string(link.title)} </a>
               </li>
             })
             ->Preact.array}
