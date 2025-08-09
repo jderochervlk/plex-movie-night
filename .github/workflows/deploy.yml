@@ -22,7 +22,7 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      
+
       - uses: actions/cache@v4
         id: node-cache
         with:
@@ -48,5 +48,3 @@ jobs:
         with:
           project: "vlk-movie-night"
           entrypoint: "main.ts"
-          
-          

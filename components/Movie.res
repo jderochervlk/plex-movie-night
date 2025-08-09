@@ -1,16 +1,13 @@
 @jsx.component
 let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
-  <section class="max-w-(--breakpoint-lg) prose m-auto">
-    <div class="min-h-[300px]">
+  <section class="movie-details">
+    <div>
       <h2> {Preact.string(title)} </h2>
-      <img
-        src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
-        class="object-contain h-[250px] float-right ml-4 mb-1 rounded-lg md:h-[350px]"
-      />
+      <img src={`/api/thumb/${title}.jpeg?thumb=${thumb}`} />
       // Critic scores?
       <p> {Preact.string(summary)} </p>
     </div>
-    <form method="post" class="w-fill mt-6 text-center" fClientNav=false>
+    <form method="post" fClientNav=false>
       <input name="ratingKey" type_="hidden" value={ratingKey->Int.toString} />
       <input
         name="wantToWatch"
@@ -24,6 +21,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
       </button>
     </form>
   </section>
+
   // Cast circles
   // crew details
 }

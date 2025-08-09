@@ -16,7 +16,7 @@ export default function ({ Component }: PageProps) {
         <title>Movie Night</title>
         <link rel="stylesheet" href="/styles.css" />
       </head>
-      <body f-client-nav class="w-full">
+      <body f-client-nav>
         <Partial name="body">
           <Header />
           <Scroll />

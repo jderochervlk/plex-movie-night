@@ -1,12 +1,11 @@
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
-  <div class="card bg-base-100 card-xs shadow-sm w-full h-full">
+  <>
     <img
       loading={index < 15 && aboveTheFold ? #eager : #lazy}
       title
       alt=title
       src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
-      class="object-cover rounded-md w-full h-full bg-gray-800 flex items-center text-center"
       fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />
     {wantToWatch
@@ -25,5 +24,5 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
           </svg>
         </div>
       : Preact.null}
-  </div>
+  </>
 }

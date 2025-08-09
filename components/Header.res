@@ -40,28 +40,26 @@ let links: array<links> = [
 
 @jsx.component
 let make = () =>
-  <div class="bg-primary text-primary-content fixed z-100 w-screen">
-    <navigation class="navbar max-w-(--breakpoint-2xl) m-auto justify-between">
-      <div class="navbar-start prose m w-auto">
-        <div class="dropdown">
-          <div tabIndex=0 role="button" class="btn btn-ghost btn-circle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
-          </div>
-          <ul
-            tabIndex=0
-            class="menu menu-sm dropdown-content bg-primary-content rounded-box z-1 mt-3 w-52 p-2 shadow">
+  <div class="nav-bar">
+    <navigation>
+      <div class="popover" tabIndex=0>
+        <button popovertarget="menu">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="popover-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h7"
+            />
+          </svg>
+        </button>
+        <nav popover=true id="menu">
+          <ul>
             {links
             ->Array.map(link => {
               <li>
@@ -72,27 +70,25 @@ let make = () =>
             })
             ->Preact.array}
           </ul>
-        </div>
+        </nav>
       </div>
-      <div class="navbar-center w-auto">
-        <a class="btn btn-ghost text-xl" href="/"> {Preact.string("Movie Night")} </a>
-      </div>
-      <div class="navbar-end w-auto">
-        <a class="btn btn-ghost btn-circle" href="/search" title="search">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </a>
-      </div>
+      <a href="/">
+        <h1> {Preact.string("Movie Night")} </h1>
+      </a>
+      <a href="/search" title="search">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+      </a>
     </navigation>
   </div>
