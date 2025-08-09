@@ -163,10 +163,16 @@ section {
 
 .movie-card {
   transition: transform 0.2s;
-
+  position: relative;
   img {
     width: 100%;
     border-radius: 0.5rem;
+  }
+  svg {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    color: green;
   }
 }
 
