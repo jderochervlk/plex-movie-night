@@ -2,6 +2,7 @@ type data = {
   moviesToWatch: array<string>,
   movies: array<Plex.Movie.t>,
   decade: string,
+  redirect: string,
 }
 
 let handler = Fresh.Handler.make({
@@ -19,7 +20,9 @@ let handler = Fresh.Handler.make({
           Option.getOr(_, []),
         )
 
-      ctx.render(~data=Some({movies, moviesToWatch, decade: `${decade}s`}))
+    let redirect = `/decade/${decade}`
+
+      ctx.render(~data=Some({movies, moviesToWatch, decade: `${decade}s`, redirect}))
     }),
 })
 
@@ -28,7 +31,7 @@ let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
     <>
-      <Movies movies=data.movies wantToWatch=data.moviesToWatch heading=data.decade redirect="/" />
+      <Movies movies=data.movies wantToWatch=data.moviesToWatch heading=data.decade redirect=data.redirect />
     </>
   | None =>
     <div className="w-full text-xl p-5 text-center">
