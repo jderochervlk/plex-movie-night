@@ -2,7 +2,8 @@ import { useEffect } from "preact/hooks";
 
 export const Scroll = () => {
   useEffect(() => {
-    const page = globalThis.location.pathname;
+    console.log(globalThis.location);
+    const page = globalThis.location;
     const scrollPosition =
       Number(sessionStorage.getItem(`scroll-position-${page}`)) ||
       0;

@@ -4,7 +4,7 @@
     "check": "deno fmt --check && deno lint && deno check **/*.ts && deno check **/*.tsx",
     "cli": "echo \"import '\\$fresh/src/dev/cli.ts'\" | deno run -A -",
     "manifest": "deno task cli manifest $(pwd)",
-    "start:fresh": "deno run -A --unstable-kv --no-clear-screen --watch=static/,routes/ dev.ts",
+    "start:fresh": "deno run -A --unstable-kv --no-clear-screen --watch=static/,routes/ dev.ts --host 0.0.0.0",
     "start:rescript": "rescript -w",
     "prepare": "deno install --allow-scripts && deno task res:build",
     "build": "deno run -A --unstable-kv dev.ts build",
