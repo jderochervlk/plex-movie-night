@@ -42,8 +42,8 @@ let links: array<links> = [
 let make = () =>
   <div class="nav-bar">
     <navigation>
-      <div class="popover" tabIndex=0>
-        <button popovertarget="menu">
+      <details>
+        <summary>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="popover-icon"
@@ -57,8 +57,8 @@ let make = () =>
               d="M4 6h16M4 12h16M4 18h7"
             />
           </svg>
-        </button>
-        <nav popover=true id="menu">
+        </summary>
+        <nav>
           <ul>
             {links
             ->Array.map(link => {
@@ -69,7 +69,7 @@ let make = () =>
             ->Preact.array}
           </ul>
         </nav>
-      </div>
+      </details>
       <a href="/">
         <h1> {Preact.string("Movie Night")} </h1>
       </a>
