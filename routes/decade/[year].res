@@ -31,6 +31,7 @@ let make = (~data: option<data>) =>
   switch data {
   | Some(data) =>
     <>
+      <Scroll />
       <Movies movies=data.movies wantToWatch=data.moviesToWatch heading=data.decade redirect=data.redirect />
     </>
   | None =>
