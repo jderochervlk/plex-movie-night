@@ -1,3 +1,5 @@
+let aspectRatio = `${Plex.imgWidth->Int.toString}/${Plex.imgHeight->Int.toString}`
+
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
   <>
@@ -5,6 +7,9 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
       loading={index < 15 && aboveTheFold ? #eager : #lazy}
       title
       alt=title
+      style={{
+        aspectRatio: aspectRatio,
+      }}
       src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
       fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />

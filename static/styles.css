@@ -176,9 +176,20 @@ section {
 .movie-card {
   transition: transform 0.2s;
   position: relative;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
   img {
+    background: var(--dark);
     width: 100%;
     border-radius: 0.5rem;
+    color: var(--white);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
   }
   svg {
     position: absolute;
