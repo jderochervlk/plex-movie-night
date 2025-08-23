@@ -10,7 +10,7 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
       style={{
         aspectRatio: aspectRatio,
       }}
-      src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
+      src={Plex.Api.getThumb(thumb)}
       fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />
     {wantToWatch
