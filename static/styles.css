@@ -181,6 +181,7 @@ section {
   align-items: center;
   text-align: center;
   display: flex;
+
   img {
     background: var(--dark);
     width: 100%;
