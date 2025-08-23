@@ -8,29 +8,28 @@ let handler = Fresh.Handler.make({
 
     if cached->Nullable.isNullable {
       Console.debug2("Cache miss for", ctx.url.pathname)
-      await Utils.authCheck(req, async () => {
-        let searchParams = URLSearchParams.fromString(ctx.url.search)
-        let thumb = searchParams->URLSearchParams.get("thumb")
 
-        let image =
-          await Plex.Api.getThumb(thumb)
-          ->fetch
-          ->Promise.then(Response.arrayBuffer)
+      let searchParams = URLSearchParams.fromString(ctx.url.search)
+      let thumb = searchParams->URLSearchParams.get("thumb")
 
-        let headers = Headers.fromKeyValueArray([
-          ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
-          ("Cache-Control", "public"),
-        ])
+      let image =
+        await Plex.Api.getThumb(thumb)
+        ->fetch
+        ->Promise.then(Response.arrayBuffer)
 
-        let res = Response.fromArrayBuffer(
-          image,
-          ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
-        )
+      let headers = Headers.fromKeyValueArray([
+        ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
+        ("Cache-Control", "public"),
+      ])
 
-        let _ = await plexCache.put(req, res->Response.clone)
+      let res = Response.fromArrayBuffer(
+        image,
+        ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
+      )
 
-        res
-      })
+      let _ = await plexCache.put(req, res->Response.clone)
+
+      res
     } else {
       Console.debug2("Cache hit for", ctx.url.pathname)
       cached->Nullable.getUnsafe
