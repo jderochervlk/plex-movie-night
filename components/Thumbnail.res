@@ -10,7 +10,7 @@ let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
       style={{
         aspectRatio: aspectRatio,
       }}
-      src={Plex.Api.getThumb(thumb)}
+      src={Plex.Api.getCloudFlareThumb(thumb)}
       fetchPriority={index < 15 && aboveTheFold ? #high : #low}
     />
     {wantToWatch
