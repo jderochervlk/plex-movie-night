@@ -208,4 +208,6 @@ module Api = {
         )}&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
       ~otherParams=true,
     )
+
+  let getCloudFlareThumb = url => `https:${Env.zone()}/cdn-cgi/image/format=avif${getThumb(url)}`
 }

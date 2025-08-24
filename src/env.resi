@@ -5,3 +5,4 @@ let token: unit => string
 let plexToken: unit => string
 let plexServer: unit => string
 let names: unit => array<string>
+let zone: unit => string
