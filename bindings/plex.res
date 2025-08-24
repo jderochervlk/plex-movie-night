@@ -209,5 +209,5 @@ module Api = {
       ~otherParams=true,
     )
 
-  let getCloudFlareThumb = url => `/cdn-cgi/image/format=avif${getThumb(url)}`
+  let getCloudFlareThumb = url => `/cdn-cgi/image/format=avif/${getThumb(url)}`
 }
