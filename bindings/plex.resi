@@ -23,6 +23,5 @@ module Api: {
   let getByDecade: (string, ~audienceRating: float=?) => promise<option<array<Movie.t>>>
   let getMovie: string => promise<option<Movie.t>>
   let getThumb: string => string
-  let getCloudFlareThumb: string => string
   let search: string => promise<option<array<Movie.t>>>
 }
