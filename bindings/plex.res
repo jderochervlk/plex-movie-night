@@ -201,13 +201,11 @@ module Api = {
 
   let getThumb = url =>
     createUrl(
-      `/photo/:/transcode?width=${Float.toString(
+      `/cdn-cgi/image/compression=fast,format=jpeg,quality=50/photo/:/transcode?width=${Float.toString(
           imgWidth->Int.toFloat * 1.5,
         )}&height=${Float.toString(
           imgHeight->Int.toFloat * 1.5,
         )}&minSize=1&upscale=1&url=${encodeURIComponent(url)}`,
       ~otherParams=true,
     )
-
-  let getCloudFlareThumb = url => `/cdn-cgi/image/format=avif/${getThumb(url)}`
 }
