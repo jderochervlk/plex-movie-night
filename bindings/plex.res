@@ -1,7 +1,7 @@
 open WebAPI
 
-let imgHeight = (372.0 * 4.0)->Math.round->Float.toInt
-let imgWidth = (248.0 * 4.0)->Math.round->Float.toInt
+let imgHeight = (372.0 * 2.0)->Math.round->Float.toInt
+let imgWidth = (248.0 * 2.0)->Math.round->Float.toInt
 
 module MediaContainer = {
   // Even though we don't build things with this constructor it is used for pattern matching on external data
