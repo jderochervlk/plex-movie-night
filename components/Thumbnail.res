@@ -2,9 +2,18 @@ let aspectRatio = `${Plex.imgWidth->Int.toString}/${Plex.imgHeight->Int.toString
 
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
+  let loading: Preact.Elements.props = {
+    if !aboveTheFold {
+      {loading: #lazy}
+    } else if index < 6 {
+      {loading: #eager}
+    } else {
+      {}
+    }
+  }
   <>
     <img
-      loading={index < 15 && aboveTheFold ? #eager : #lazy}
+      {...loading}
       title
       alt=title
       style={{
