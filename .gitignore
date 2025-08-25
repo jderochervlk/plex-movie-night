@@ -17,3 +17,6 @@ lib
 
 # tailwind
 tailwindcss
+
+# scripts
+!static/nav-listener.mjs

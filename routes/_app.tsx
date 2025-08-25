@@ -25,6 +25,7 @@ export default function ({ Component }: PageProps) {
           </Layout>
         </Partial>
       </body>
+      <script src="/nav-listener.mjs"></script>
     </html>
   );
 }
