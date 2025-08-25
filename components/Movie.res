@@ -3,7 +3,7 @@ let make = (~title, ~summary, ~wantToWatch="false", ~thumb, ~ratingKey) => {
   <section class="movie-details">
     <div>
       <h2> {Preact.string(title)} </h2>
-      <img src={`/api/thumb/${title}.jpeg?thumb=${thumb}`} />
+      <Thumbnail title thumb index=0 wantToWatch=false aboveTheFold=true />
       // Critic scores?
       <p> {Preact.string(summary)} </p>
     </div>
