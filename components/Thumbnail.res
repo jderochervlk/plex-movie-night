@@ -2,25 +2,16 @@ let aspectRatio = `${Plex.imgWidth->Int.toString}/${Plex.imgHeight->Int.toString
 
 @jsx.component
 let make = (~title, ~thumb, ~index, ~wantToWatch: bool, ~aboveTheFold) => {
-  let loading: Preact.Elements.props = {
-    if !aboveTheFold {
-      {loading: #lazy}
-    } else if index < 6 {
-      {loading: #eager}
-    } else {
-      {}
-    }
-  }
   <>
     <img
-      {...loading}
+      loading={aboveTheFold && index < 6 ? #eager : #lazy}
       title
       alt=title
       style={{
         aspectRatio: aspectRatio,
       }}
-      src={Plex.Api.getThumb(thumb)}
-      fetchPriority={index < 15 && aboveTheFold ? #high : #low}
+      src={`/api/thumb/${title}.jpeg?thumb=${thumb}`}
+      fetchPriority={index < 12 ? #high : #low}
     />
     {wantToWatch
       ? <svg

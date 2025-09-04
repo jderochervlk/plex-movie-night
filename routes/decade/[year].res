@@ -20,7 +20,7 @@ let handler = Fresh.Handler.make({
           Option.getOr(_, []),
         )
 
-    let redirect = `/decade/${decade}`
+      let redirect = `/decade/${decade}`
 
       ctx.render(~data=Some({movies, moviesToWatch, decade: `${decade}s`, redirect}))
     }),
@@ -32,7 +32,13 @@ let make = (~data: option<data>) =>
   | Some(data) =>
     <>
       <Scroll />
-      <Movies movies=data.movies wantToWatch=data.moviesToWatch heading=data.decade redirect=data.redirect />
+      <Movies
+        movies=data.movies
+        wantToWatch=data.moviesToWatch
+        heading=data.decade
+        redirect=data.redirect
+        aboveTheFold=true
+      />
     </>
   | None =>
     <div className="w-full text-xl p-5 text-center">
