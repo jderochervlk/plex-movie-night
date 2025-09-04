@@ -392,6 +392,8 @@ section {
   background: var(--light-accent);
   padding: 1rem;
   border-radius: 0.5rem;
+  color: var(--white);
+  text-align: center;
 }
 
 details>summary {
