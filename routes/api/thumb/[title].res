@@ -12,17 +12,19 @@ let handler = Fresh.Handler.make({
       let searchParams = URLSearchParams.fromString(ctx.url.search)
       let thumb = searchParams->URLSearchParams.get("thumb")
 
-      let image =
-        await Plex.Api.getThumb(thumb)
-        ->fetch
-        ->Promise.then(Response.arrayBuffer)
+      let imageRes = await Plex.Api.getThumb(thumb)->fetch
+
+      let image = await imageRes->Response.blob
+
+      let contentType = imageRes.headers->Headers.get("Content-Type")
 
       let headers = Headers.fromKeyValueArray([
         ("Expires", Utils.sixMonthsFromNow()->Date.toDateString),
         ("Cache-Control", "public"),
+        ("Content-Type", contentType),
       ])
 
-      let res = Response.fromArrayBuffer(
+      let res = Response.fromBlob(
         image,
         ~init={status: 200, headers: HeadersInit.fromHeaders(headers)},
       )
