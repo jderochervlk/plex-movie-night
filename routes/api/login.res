@@ -1,11 +1,12 @@
 open WebAPI
-type data = {isAllowed: bool}
+type data
 
+@live
 let handler = Fresh.Handler.make({
   post: async (req, _ctx) => {
     if await Utils.doesPasswordMatch(req) {
       let headers = Headers.make()
-      headers->Headers.set(~name="location", ~value="/")
+      headers->Headers.set(~name="location", ~value=Utils.getRootUrl(req.url))
       headers->Std.Http.Cookies.set({
         name: "auth",
         value: Env.token(),

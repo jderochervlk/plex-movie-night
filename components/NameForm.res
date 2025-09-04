@@ -1,6 +1,6 @@
 @jsx.component
 let make = () => {
-  <form method="post" action="/api/name" class="form-card">
+  <form method="post" fClientNav=false action="/api/name" class="form-card">
     <label \"for"="name"> {"Select your name"->Preact.string} </label>
     <select name="name">
       {Env.names()

@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     let isAllowed = await Utils.isAuthenticated(req)
