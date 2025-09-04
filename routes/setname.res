@@ -1,5 +1,6 @@
 open WebAPI
 
+@live
 let handler = Fresh.Handler.make({
   get: async (req, ctx) => {
     let hasName = await Utils.hasNameSet(req)
@@ -18,4 +19,5 @@ let make = () => {
   </div>
 }
 
+@live
 let default = make
