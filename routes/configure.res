@@ -2,6 +2,7 @@ open WebAPI
 
 type data = {users: array<string>, active: array<string>}
 
+@live
 let handler = Fresh.Handler.make({
   get: async (req, ctx) =>
     await Utils.authCheck(req, async () => {
@@ -21,12 +22,15 @@ let handler = Fresh.Handler.make({
 
       let _ = await User.setActiveUsers(active)
 
-      Console.log(form)
+      Console.debug2("configuring users", form)
 
-      // console.lo
-      // let active = await User.getActiveUsers()
+      let headers = Headers.make()
 
-      ctx.render(~data={users, active})
+      headers->Headers.set(~name="location", ~value=Utils.getRootUrl(req.url) ++ "/watch")
+
+      let headers = HeadersInit.fromHeaders(headers)
+
+      Response.fromNull(~init={status: 303, headers})
     })
   },
 })
