@@ -47,7 +47,6 @@ module Elements = {
     fetchPriority?: [#high | #low | #auto],
     @as("f-client-nav") fClientNav?: bool,
     popovertarget?: string,
-    popover?: bool,
   }
 
   @module("preact")

@@ -10,8 +10,8 @@
     "build": "deno run -A --unstable-kv dev.ts build",
     "preview": "deno run -A --unstable-kv main.ts",
     "update": "deno run -A -r https://fresh.deno.dev/update .",
-    "res:dev": "rescript -w",
-    "res:build": "rescript",
+    "res:dev": "rescript watch",
+    "res:build": "rescript build",
     "res:clean": "rescript clean"
   },
   "lint": {
@@ -25,14 +25,14 @@
   "imports": {
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "@preact/signals": "https://esm.sh/*@preact/signals@1.2.2",
-    "@rescript/std": "npm:@rescript/std@12.0.0-alpha.7",
     "@rescript/webapi": "npm:@rescript/webapi@0.1.0-experimental-fe47fc9",
+    "@rescript/linux-x64": "npm:@rescript/linux-x64@12.0.0-beta.12",
     "$fresh/": "https://deno.land/x/fresh@1.7.3/",
     "$std/": "https://deno.land/std@0.216.0/",
     "@types/node": "npm:@types/node@^24.2.0",
     "preact": "https://esm.sh/preact@10.22.0",
     "preact/": "https://esm.sh/preact@10.22.0/",
-    "rescript": "npm:rescript@12.0.0-alpha.7"
+    "rescript": "npm:rescript@12.0.0-beta.12"
   },
   "compilerOptions": {
     "jsx": "react-jsx",
