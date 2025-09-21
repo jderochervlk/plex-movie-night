@@ -37,6 +37,5 @@
   ],
   "bsc-flags": [
     "-open WebAPI.Global"
-  ],
-  "external-stdlib": "@rescript/std"
+  ]
 }
